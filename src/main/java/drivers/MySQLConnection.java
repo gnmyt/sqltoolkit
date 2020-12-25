@@ -147,7 +147,7 @@ public class MySQLConnection {
      * @return ResultSet
      */
     public ResultSet getResultSet(String query, Object... params) {
-        query = (tablePrefix.isEmpty()) ? "" : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
+        query = (tablePrefix.isEmpty()) ? query : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
         try { int start = 1;
             PreparedStatement ps = con.prepareStatement(query);
             for (Object current : params) { ps.setObject(start, current);start++; }
@@ -175,7 +175,7 @@ public class MySQLConnection {
      * @return this class
      */
     public MySQLConnection update(String query, Object... params) {
-        query = (tablePrefix.isEmpty()) ? "" : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
+        query = (tablePrefix.isEmpty()) ? query : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
         try { int start = 1;
             PreparedStatement ps = con.prepareStatement(query);
             for (Object current : params) { ps.setObject(start, current);start++; }
