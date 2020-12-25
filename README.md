@@ -55,13 +55,13 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
    - TIMEZONE_UTC *(serverTimezone=UTC)*
 2. Perform a standard SQL query
    - Get a ResultSet
-   ```java
-   connection.getResultSet("default query", "parameters");
-   ```
+     ```java
+     connection.getResultSet("default query", "parameters");
+     ```
    - Perform an update
-   ```java
-   connection.update("query", "parameters");
-   ```
+     ```java
+     connection.update("query", "parameters");
+     ```
 3. Get something from a table with managers
    1. Getting a Result (For one result)
       ```java
