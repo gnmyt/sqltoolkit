@@ -1,5 +1,6 @@
 package drivers;
 
+import api.SQLConsumer;
 import manager.ResultManager;
 import manager.DataBaseSelection;
 import manager.UpdateManager;
@@ -169,6 +170,20 @@ public class MySQLConnection {
     }
 
     /**
+     * Run a action with a result from your server
+     * @param query Search query
+     * @param consumer consumer
+     * @param params Optional parameters
+     */
+    public void getResult(String query, SQLConsumer<ResultSet> consumer, Object... params) {
+        try {
+            ResultSet resultSet = getResultSet(query, params);
+            consumer.accept(resultSet);
+            resultSet.close();
+        } catch (Exception ignored) {}
+    }
+
+    /**
      * Update something on your server by query
      * @param query Update query
      * @param params Optional parameters
@@ -229,7 +244,7 @@ public class MySQLConnection {
                 con = DriverManager.getConnection("jdbc:mysql://" + hostname + "/" + database + connectString, username, password);
                 sqlLogManager.sendInfo("Connection established");
             } catch (Exception exception) {
-                if (exception.getMessage().equals("jdbc.Driver"))
+                if (exception.getMessage().contains("jdbc.Driver"))
                     sqlLogManager.sendError("MySQL driver not found! Check your dependencies or install the JDBC Mysql Driver from https://dev.mysql.com/downloads/file/?id=498587");
                  else if (exception.getMessage().contains("has not received any packets")) sqlLogManager.sendError("No packets received from the server.");
                  else if (exception.getMessage().contains("denied for user")) sqlLogManager.sendError("Wrong username/password");
