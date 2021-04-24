@@ -8,7 +8,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/germannewsmaker/sqltoolkit">
+  <a href="https://github.com/gnmyt/sqltoolkit">
     <img src="https://i.imgur.com/BAvJgQN.png" alt="Logo" width="80" height="80">
   </a>
 </p>
@@ -20,7 +20,7 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
 ### Installation 
 1. Clone the repo
    ```sh
-   git clone https://github.com/germannewsmaker/sqltoolkit.git
+   git clone https://github.com/gnmyt/sqltoolkit.git
    ```
 2. Move the project into a package of your project (in most cases "sql")
 3. Ready! Have fun
@@ -118,13 +118,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## End
 Currently there are not many features yet, so feel free to write me some suggestions!
 
-[contributors-shield]: https://img.shields.io/github/contributors/germannewsmaker/sqltoolkit.svg?style=for-the-badge
-[contributors-url]: https://github.com/germannewsmaker/sqltoolkit/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/germannewsmaker/sqltoolkit.svg?style=for-the-badge
-[forks-url]: https://github.com/germannewsmaker/sqltoolkit/network/members
-[stars-shield]: https://img.shields.io/github/stars/germannewsmaker/sqltoolkit.svg?style=for-the-badge
-[stars-url]: https://github.com/germannewsmaker/sqltoolkit/stargazers
-[issues-shield]: https://img.shields.io/github/issues/germannewsmaker/sqltoolkit.svg?style=for-the-badge
-[issues-url]: https://github.com/germannewsmaker/sqltoolkit/issues
-[license-shield]: https://img.shields.io/github/license/germannewsmaker/sqltoolkit.svg?style=for-the-badge
-[license-url]: https://github.com/germannewsmaker/sqltoolkit/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/gnmyt/sqltoolkit.svg?style=for-the-badge
+[contributors-url]: https://github.com/gnmyt/sqltoolkit/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/gnmyt/sqltoolkit.svg?style=for-the-badge
+[forks-url]: https://github.com/gnmyt/sqltoolkit/network/members
+[stars-shield]: https://img.shields.io/github/stars/gnmyt/sqltoolkit.svg?style=for-the-badge
+[stars-url]: https://github.com/gnmyt/sqltoolkit/stargazers
+[issues-shield]: https://img.shields.io/github/issues/gnmyt/sqltoolkit.svg?style=for-the-badge
+[issues-url]: https://github.com/gnmyt/sqltoolkit/issues
+[license-shield]: https://img.shields.io/github/license/gnmyt/sqltoolkit.svg?style=for-the-badge
+[license-url]: https://github.com/gnmyt/sqltoolkit/blob/master/LICENSE.txt
