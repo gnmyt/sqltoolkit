@@ -24,7 +24,7 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
    ```
 2. Move the project into a package of your project (in most cases "sql")
 3. Ready! Have fun
-#### Maven comming soon
+#### Maven coming soon
 
 ### Usage Examples
 1. Create a connection
