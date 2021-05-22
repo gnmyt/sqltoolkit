@@ -1,6 +1,6 @@
-package fields;
+package de.gnmyt.SQLToolkit.fields;
 
-import types.SQLType;
+import de.gnmyt.SQLToolkit.types.SQLType;
 
 /********************************
  * @author Mathias Wagner

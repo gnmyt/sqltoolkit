@@ -1,4 +1,4 @@
-package types;
+package de.gnmyt.SQLToolkit.types;
 
 /********************************
  * @author Mathias Wagner

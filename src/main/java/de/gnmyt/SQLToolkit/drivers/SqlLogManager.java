@@ -1,6 +1,6 @@
-package drivers;
+package de.gnmyt.SQLToolkit.drivers;
 
-import types.LogLevelType;
+import de.gnmyt.SQLToolkit.types.LogLevelType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

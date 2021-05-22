@@ -1,8 +1,8 @@
-package generator;
+package de.gnmyt.SQLToolkit.generator;
 
-import drivers.MySQLConnection;
-import fields.SQLField;
-import manager.UpdateManager;
+import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.fields.SQLField;
+import de.gnmyt.SQLToolkit.manager.UpdateManager;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -22,7 +22,7 @@ public class TableGenerator {
 
     /**
      * Basic constructor for the TableGenerator
-     * @param updateManager Existing update manager
+     * @param updateManager Existing update de.gnmyt.SQLToolkit.manager
      * @param tableName Name of the table
      */
     public TableGenerator(UpdateManager updateManager, String tableName) {

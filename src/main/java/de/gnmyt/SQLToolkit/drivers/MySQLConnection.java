@@ -1,11 +1,11 @@
-package drivers;
+package de.gnmyt.SQLToolkit.drivers;
 
-import api.SQLConsumer;
-import manager.ResultManager;
-import manager.DataBaseSelection;
-import manager.UpdateManager;
-import types.LogLevelType;
-import types.LoginParam;
+import de.gnmyt.SQLToolkit.api.SQLConsumer;
+import de.gnmyt.SQLToolkit.manager.ResultManager;
+import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
+import de.gnmyt.SQLToolkit.manager.UpdateManager;
+import de.gnmyt.SQLToolkit.types.LogLevelType;
+import de.gnmyt.SQLToolkit.types.LoginParam;
 
 import java.sql.*;
 
@@ -200,17 +200,17 @@ public class MySQLConnection {
     }
 
     /**
-     * Get the update manager for easier updating
-     * @return Update manager
+     * Get the update de.gnmyt.SQLToolkit.manager for easier updating
+     * @return Update de.gnmyt.SQLToolkit.manager
      */
     public UpdateManager update() {
         return new UpdateManager(this);
     }
 
     /**
-     * Get the update manager for easier updating (pre filled table)
+     * Get the update de.gnmyt.SQLToolkit.manager for easier updating (pre filled table)
      * @param tableName The name of the table
-     * @return Update manager
+     * @return Update de.gnmyt.SQLToolkit.manager
      */
     public UpdateManager updateTable(String tableName) {
         return new UpdateManager(this, tableName);

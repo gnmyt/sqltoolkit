@@ -1,6 +1,6 @@
-package manager;
+package de.gnmyt.SQLToolkit.manager;
 
-import drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

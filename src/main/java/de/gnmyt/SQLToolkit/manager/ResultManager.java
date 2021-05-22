@@ -1,6 +1,6 @@
-package manager;
+package de.gnmyt.SQLToolkit.manager;
 
-import drivers.SqlLogManager;
+import de.gnmyt.SQLToolkit.drivers.SqlLogManager;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;

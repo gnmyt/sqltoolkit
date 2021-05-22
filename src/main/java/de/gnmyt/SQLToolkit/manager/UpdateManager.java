@@ -1,7 +1,7 @@
-package manager;
+package de.gnmyt.SQLToolkit.manager;
 
-import drivers.MySQLConnection;
-import generator.TableGenerator;
+import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.generator.TableGenerator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -189,7 +189,7 @@ public class UpdateManager {
     /**
      * Generate a new Table (with prefilled tableName)
      * @param tableName Name of the new table
-     * @return the generator
+     * @return the de.gnmyt.SQLToolkit.generator
      */
     public TableGenerator generateTable(String tableName) {
         return new TableGenerator(this, tableName);
@@ -197,7 +197,7 @@ public class UpdateManager {
 
     /**
      * Generate a new Table
-     * @return the generator
+     * @return the de.gnmyt.SQLToolkit.generator
      */
     public TableGenerator generateTable() {
         return (tableName.isEmpty()) ? null : new TableGenerator(this, tableName);
