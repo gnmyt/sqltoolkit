@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.drivers;
 
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
+import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
 import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
@@ -231,6 +232,23 @@ public class MySQLConnection {
      */
     public DataBaseSelection select() {
         return new DataBaseSelection(this);
+    }
+
+    /**
+     * Get the InsertManager for easier inserting to a table
+     * @return InsertManager
+     */
+    public InsertManager insert() {
+        return new InsertManager(this);
+    }
+
+    /**
+     * Get the InsertManager for easier inserting to a table
+     * @param tableName The name of the table you want to insert a object
+     * @return InsertManager
+     */
+    public InsertManager insertFrom(String tableName) {
+        return new InsertManager(this, tableName);
     }
 
     /**
