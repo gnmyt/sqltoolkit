@@ -114,4 +114,23 @@ public class ResultManager {
         return results;
     }
 
+    /**
+     * Get a list of all results with all columns
+     * @return ArrayList with the result
+     */
+    public ArrayList<HashMap<String, Object>> getList() {
+        ArrayList<HashMap<String, Object>> results = new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                HashMap<String, Object> result = new HashMap<>();
+                for (int i=0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    String columnName = resultSet.getMetaData().getColumnName(i+1);
+                    result.put(columnName, resultSet.getObject(columnName));
+                }
+                results.add(result);
+            }
+        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        return results;
+    }
+
 }
