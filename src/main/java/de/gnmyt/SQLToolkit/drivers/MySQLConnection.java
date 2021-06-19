@@ -247,7 +247,7 @@ public class MySQLConnection {
      * @param tableName The name of the table you want to insert a object
      * @return InsertManager
      */
-    public InsertManager insertFrom(String tableName) {
+    public InsertManager insertTo(String tableName) {
         return new InsertManager(this, tableName);
     }
 
