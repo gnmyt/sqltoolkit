@@ -3,6 +3,7 @@ package de.gnmyt.SQLToolkit.manager;
 import de.gnmyt.SQLToolkit.drivers.SqlLogManager;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,6 +77,12 @@ public class ResultManager {
         try { while (resultSet.next()) { return resultSet.getBoolean(column); }
         } catch (Exception err) { logManager.sendError(err.getMessage()); }
         return false;
+    }
+
+    public Timestamp getTimestamp(String column) {
+        try { while (resultSet.next()) { return resultSet.getTimestamp(column); }
+        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        return null;
     }
 
     /**
