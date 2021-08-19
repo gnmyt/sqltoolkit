@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.drivers;
 
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
+import de.gnmyt.SQLToolkit.factory.TableFactory;
 import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
@@ -27,6 +28,7 @@ public class MySQLConnection {
     private String tablePrefixVariable = "";
     private String connectString = "";
     private Connection con;
+    private TableFactory tableFactory = new TableFactory(this);
 
     /**
      * Basic constructor for the connection
@@ -188,6 +190,14 @@ public class MySQLConnection {
      */
     public InsertManager insertTo(String tableName) {
         return new InsertManager(this, tableName);
+    }
+
+    /**
+     * Gets the table factory
+     * @return the table factory
+     */
+    public TableFactory getTableFactory() {
+        return tableFactory;
     }
 
     /**
