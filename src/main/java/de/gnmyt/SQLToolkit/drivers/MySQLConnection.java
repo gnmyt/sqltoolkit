@@ -22,7 +22,7 @@ public class MySQLConnection {
     private String tablePrefix = "";
     private String tablePrefixVariable = "";
     private String connectString = "";
-    public static Connection con;
+    private Connection con;
     private final SqlLogManager sqlLogManager;
 
     /**
