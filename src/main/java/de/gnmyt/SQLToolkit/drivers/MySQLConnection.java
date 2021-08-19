@@ -3,10 +3,7 @@ package de.gnmyt.SQLToolkit.drivers;
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
 import de.gnmyt.SQLToolkit.factory.TableFactory;
 import de.gnmyt.SQLToolkit.generator.TableGenerator;
-import de.gnmyt.SQLToolkit.manager.InsertManager;
-import de.gnmyt.SQLToolkit.manager.ResultManager;
-import de.gnmyt.SQLToolkit.manager.SelectionManager;
-import de.gnmyt.SQLToolkit.manager.UpdateManager;
+import de.gnmyt.SQLToolkit.manager.*;
 import de.gnmyt.SQLToolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -157,7 +154,7 @@ public class MySQLConnection {
      * @param tableName The name of the table
      * @return Update de.gnmyt.SQLToolkit.manager
      */
-    public UpdateManager updateTable(String tableName) {
+    public UpdateManager update(String tableName) {
         return new UpdateManager(this, tableName);
     }
 
@@ -197,6 +194,23 @@ public class MySQLConnection {
      */
     public InsertManager insertTo(String tableName) {
         return new InsertManager(this, tableName);
+    }
+
+    /**
+     * Gets the deletion manager for easier deleting rows in a table
+     * @return the deletion manager
+     */
+    public DeletionManager delete() {
+        return new DeletionManager(this);
+    }
+
+    /**
+     * Gets the deletion manager for easier deleting rows in a table
+     * @param tableName The name of the table you want to delete a row from
+     * @return the deletion manager
+     */
+    public DeletionManager delete(String tableName) {
+        return new DeletionManager(this, tableName);
     }
 
     /**
