@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.manager;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import org.slf4j.Logger;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DataBaseSelection {
+
+    private final Logger LOG = MySQLConnection.LOG;
 
     private final MySQLConnection connection;
     private final HashMap<String, Object> whereList;
@@ -121,8 +124,7 @@ public class DataBaseSelection {
         getTempParams().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
         StackTraceElement stack = st[st.length-1];
-        connection.getLogManager()
-                .sendInfo("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
         return this;
     }
 

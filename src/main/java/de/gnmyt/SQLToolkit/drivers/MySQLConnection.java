@@ -7,6 +7,8 @@ import de.gnmyt.SQLToolkit.manager.ResultManager;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import de.gnmyt.SQLToolkit.types.LogLevelType;
 import de.gnmyt.SQLToolkit.types.LoginParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,15 +17,17 @@ import java.sql.ResultSet;
 
 public class MySQLConnection {
 
+    public static final Logger LOG = LoggerFactory.getLogger("MySQL-Logger");
+
     private final String hostname;
     private final String username;
     private final String password;
     private final String database;
+
     private String tablePrefix = "";
     private String tablePrefixVariable = "";
     private String connectString = "";
     private Connection con;
-    private final SqlLogManager sqlLogManager;
 
     /**
      * Update the Connection String
@@ -86,14 +90,6 @@ public class MySQLConnection {
     }
 
     /**
-     * Get the SQL Log Manager and adjust it how you like it
-     * @return the SQL Log Manager
-     */
-    public SqlLogManager getLogManager() {
-        return sqlLogManager;
-    }
-
-    /**
      * Basic constructor for the Connection
      * @param hostname MySQL server hostname
      * @param username MySQL server username
@@ -107,9 +103,7 @@ public class MySQLConnection {
         this.username = username;
         this.password = password;
         this.database = database;
-        this.sqlLogManager = new SqlLogManager();
         updateConnectString(loginParams);
-        setLogLevelType(logLevel);
     }
 
     /**
@@ -125,19 +119,7 @@ public class MySQLConnection {
         this.username = username;
         this.password = password;
         this.database = database;
-        this.sqlLogManager = new SqlLogManager();
         updateConnectString(loginParams);
-        setLogLevelType(LogLevelType.NONE);
-    }
-
-    /**
-     * Set a new logging level
-     * @param logLevelType New logging level
-     * @return this class
-     */
-    public MySQLConnection setLogLevelType(LogLevelType logLevelType) {
-        this.sqlLogManager.setLogLevelType(logLevelType);
-        return this;
     }
 
     /**
@@ -153,7 +135,7 @@ public class MySQLConnection {
             for (Object current : params) { ps.setObject(start, current);start++; }
             return ps.executeQuery();
         } catch (Exception err) {
-            sqlLogManager.sendError(err.getMessage());
+            LOG.error(err.getMessage());
         }
         return null;
     }
@@ -165,7 +147,7 @@ public class MySQLConnection {
      * @return ResultManager
      */
     public ResultManager getResult(String query, Object... params) {
-        return new ResultManager(getResultSet(query, params), sqlLogManager);
+        return new ResultManager(getResultSet(query, params));
     }
 
     /**
@@ -255,18 +237,19 @@ public class MySQLConnection {
      */
     public MySQLConnection connect() {
         if (!isConnected()) { try {
-            sqlLogManager.sendInfo("Connecting to " + hostname + " with user " + username + " to database " + database);
+            LOG.info("Connecting to " + hostname + " with user " + username + " to database " + database);
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://" + hostname + "/" + database + connectString, username, password);
-                sqlLogManager.sendInfo("Connection established");
+                LOG.info("Connection established");
             } catch (Exception exception) {
                 if (exception.getMessage().contains("jdbc.Driver"))
-                    sqlLogManager.sendError("MySQL driver not found! Check your dependencies or install the JDBC Mysql Driver from https://dev.mysql.com/downloads/file/?id=498587");
-                 else if (exception.getMessage().contains("has not received any packets")) sqlLogManager.sendError("No packets received from the server.");
-                 else if (exception.getMessage().contains("denied for user")) sqlLogManager.sendError("Wrong username/password");
-                 else sqlLogManager.sendError(exception.getMessage());
+                    LOG.error("MySQL driver not found! Check your dependencies or install the JDBC Mysql Driver from https://dev.mysql.com/downloads/file/?id=498587");
+                 else if (exception.getMessage().contains("has not received any packets"))
+                     LOG.error("No packets received from the server.");
+                 else if (exception.getMessage().contains("denied for user")) LOG.error("Wrong username/password");
+                 else LOG.error(exception.getMessage());
             }
-        } else sqlLogManager.sendWarning("Already connected");
+        } else LOG.warn("Already connected");
         return this;
     }
 
@@ -275,9 +258,13 @@ public class MySQLConnection {
      * @return this class
      */
     public MySQLConnection disconnect() {
-        if (isConnected()) { try { con.close();con = null;sqlLogManager.sendInfo("Connection closed");
-        } catch (Exception err) { sqlLogManager.sendError(err.getMessage()); }
-        } else sqlLogManager.sendWarning("Not connected. Please connect first");
+        if (isConnected()) {
+            try {
+                con.close();
+                con = null;
+                LOG.info("Connection closed");
+        } catch (Exception err) { LOG.error(err.getMessage()); }
+        } else LOG.warn("Not connected. Please connect first");
         return this;
     }
 

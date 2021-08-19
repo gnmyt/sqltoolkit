@@ -2,12 +2,15 @@ package de.gnmyt.SQLToolkit.manager;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
 import de.gnmyt.SQLToolkit.generator.TableGenerator;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UpdateManager {
+
+    private final Logger LOG = MySQLConnection.LOG;
 
     private MySQLConnection connection;
     private String tableName;
@@ -67,8 +70,7 @@ public class UpdateManager {
         whereList.values().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
         StackTraceElement stack = st[st.length-1];
-        connection.getLogManager()
-                .sendInfo("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
         return this;
     }
 
@@ -84,8 +86,7 @@ public class UpdateManager {
         getTempParams().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
         StackTraceElement stack = st[st.length-1];
-        connection.getLogManager()
-                .sendInfo("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
         return this;
     }
 

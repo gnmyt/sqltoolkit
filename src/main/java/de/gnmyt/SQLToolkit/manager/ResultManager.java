@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.manager;
 
-import de.gnmyt.SQLToolkit.drivers.SqlLogManager;
+import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import org.slf4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -9,17 +10,16 @@ import java.util.HashMap;
 
 public class ResultManager {
 
-    private ResultSet resultSet;
-    private SqlLogManager logManager;
+    private final Logger LOG = MySQLConnection.LOG;
+
+    private final ResultSet resultSet;
 
     /**
      * Basic constructor for the ResultManager
      * @param resultSet Existing ResultSet
-     * @param logManager Existing LogManager
      */
-    public ResultManager(ResultSet resultSet, SqlLogManager logManager) {
+    public ResultManager(ResultSet resultSet) {
         this.resultSet = resultSet;
-        this.logManager = logManager;
     }
 
     /**
@@ -37,7 +37,7 @@ public class ResultManager {
      */
     public Object getObject(String column) {
         try { while (resultSet.next()) { return resultSet.getObject(column); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return null;
     }
 
@@ -48,7 +48,7 @@ public class ResultManager {
      */
     public String getString(String column) {
         try { while (resultSet.next()) { return resultSet.getString(column); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return "";
     }
 
@@ -59,7 +59,7 @@ public class ResultManager {
      */
     public Integer getInteger(String column) {
         try { while (resultSet.next()) { return resultSet.getInt(column); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return 0;
     }
 
@@ -70,13 +70,13 @@ public class ResultManager {
      */
     public Boolean getBoolean(String column) {
         try { while (resultSet.next()) { return resultSet.getBoolean(column); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return false;
     }
 
     public Timestamp getTimestamp(String column) {
         try { while (resultSet.next()) { return resultSet.getTimestamp(column); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return null;
     }
 
@@ -86,7 +86,7 @@ public class ResultManager {
      */
     public Integer getRowCount() {
         int count=0;
-        try { while (resultSet.next()) { count++; } } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        try { while (resultSet.next()) { count++; } } catch (Exception err) { LOG.error(err.getMessage()); }
         return count;
     }
 
@@ -98,7 +98,7 @@ public class ResultManager {
     public ArrayList<String> getList(String column) {
         ArrayList<String> results = new ArrayList<>();
         try { while (resultSet.next()) { results.add(resultSet.getString(column)); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return results;
     }
 
@@ -112,7 +112,7 @@ public class ResultManager {
         HashMap<String, String> results = new HashMap<>();
         try { while (resultSet.next()) {
             results.put(resultSet.getString(column), resultSet.getString(column2)); }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return results;
     }
 
@@ -131,7 +131,7 @@ public class ResultManager {
                 }
                 results.add(result);
             }
-        } catch (Exception err) { logManager.sendError(err.getMessage()); }
+        } catch (Exception err) { LOG.error(err.getMessage()); }
         return results;
     }
 
