@@ -154,7 +154,7 @@ public class MySQLConnection {
      * @param tableName The name of the table
      * @return Update de.gnmyt.SQLToolkit.manager
      */
-    public UpdateManager update(String tableName) {
+    public UpdateManager updateTo(String tableName) {
         return new UpdateManager(this, tableName);
     }
 

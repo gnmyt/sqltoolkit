@@ -132,7 +132,7 @@ public abstract class SQLTable {
      * @return the update manager
      */
     public UpdateManager update() {
-        return connection.update(tableName());
+        return connection.updateTo(tableName());
     }
 
     /**
