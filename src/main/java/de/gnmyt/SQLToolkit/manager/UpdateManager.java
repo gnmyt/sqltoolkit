@@ -88,12 +88,9 @@ public class UpdateManager {
 
     /**
      * Update the entries with your current conditions
-     *
-     * @return this class
      */
-    public UpdateManager execute() {
+    public void execute() {
         connection.update(prepareUpdateStatement(), getTempParams().toArray());
-        return this;
     }
 
     /**

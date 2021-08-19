@@ -81,12 +81,9 @@ public class InsertManager {
 
     /**
      * Execute the current SQL query
-     *
-     * @return this class
      */
-    public InsertManager execute() {
+    public void execute() {
         connection.update(prepareStatement(), values.values().toArray());
-        return this;
     }
 
 }
