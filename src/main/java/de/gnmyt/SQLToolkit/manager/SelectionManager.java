@@ -108,7 +108,7 @@ public class SelectionManager {
      * @return ResultManager
      */
     public ResultManager getResult() {
-        return connection.getResult(processStatement(), getTempParams().toArray());
+        return connection.getResult(prepareStatement(), getTempParams().toArray());
     }
 
     /**
@@ -117,7 +117,7 @@ public class SelectionManager {
      * @return ResultSet
      */
     public ResultSet getResultSet() {
-        return connection.getResultSet(processStatement(), getTempParams().toArray());
+        return connection.getResultSet(prepareStatement(), getTempParams().toArray());
     }
 
     /**
@@ -138,7 +138,7 @@ public class SelectionManager {
      *
      * @return the current statement query
      */
-    private String processStatement() {
+    private String prepareStatement() {
         StringBuilder query = new StringBuilder().append("SELECT * FROM ").append(tableName).append(" ");
 
         for (int i = 0; i < whereList.size(); i++) {
