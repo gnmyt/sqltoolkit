@@ -81,8 +81,8 @@ public abstract class SQLTable {
     /**
      * Adds a boolean to the table (without allowNull)
      *
-     * @param name         The name of the boolean you want to add
-     * @param extras       The extras you want to add to the boolean
+     * @param name   The name of the boolean you want to add
+     * @param extras The extras you want to add to the boolean
      */
     protected void bool(String name, String... extras) {
         custom(SQLType.BOOLEAN.getValue(), name, 1, false, "", extras);

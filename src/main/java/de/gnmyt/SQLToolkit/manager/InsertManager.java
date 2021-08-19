@@ -80,7 +80,7 @@ public class InsertManager {
 
 
     /**
-     * Execute the current SQL query
+     * Executes the current SQL query
      */
     public void execute() {
         connection.update(prepareStatement(), values.values().toArray());

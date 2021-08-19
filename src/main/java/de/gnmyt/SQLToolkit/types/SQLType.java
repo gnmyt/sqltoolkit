@@ -9,10 +9,11 @@ public enum SQLType {
     DATETIME("DATETIME"),
     BOOLEAN("TINYINT");
 
-    private String value;
+    private final String value;
 
     /**
      * Basic constructor of the {@link SQLType} enum
+     *
      * @param value The value of the type
      */
     SQLType(String value) {
