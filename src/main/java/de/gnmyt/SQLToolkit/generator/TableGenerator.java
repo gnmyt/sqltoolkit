@@ -7,11 +7,6 @@ import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
-
 public class TableGenerator {
 
     private UpdateManager updateManager;

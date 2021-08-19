@@ -5,11 +5,6 @@ import de.gnmyt.SQLToolkit.types.LogLevelType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
-
 public class SqlLogManager {
 
     private LogLevelType logLevelType;

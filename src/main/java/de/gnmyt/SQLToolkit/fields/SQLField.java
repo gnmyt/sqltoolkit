@@ -2,11 +2,6 @@ package de.gnmyt.SQLToolkit.fields;
 
 import de.gnmyt.SQLToolkit.types.SQLType;
 
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
-
 public class SQLField {
 
     private String name = "";

@@ -7,11 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
-
 public class ResultManager {
 
     private ResultSet resultSet;

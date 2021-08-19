@@ -1,19 +1,17 @@
 package de.gnmyt.SQLToolkit.drivers;
 
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
+import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
-import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import de.gnmyt.SQLToolkit.types.LogLevelType;
 import de.gnmyt.SQLToolkit.types.LoginParam;
 
-import java.sql.*;
-
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class MySQLConnection {
 

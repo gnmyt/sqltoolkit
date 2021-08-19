@@ -1,10 +1,5 @@
 package de.gnmyt.SQLToolkit.types;
 
-/********************************
- * @author Mathias Wagner
- * Created 23.12.2020
- ********************************/
-
 public enum LogLevelType {
 
     NONE("Sends nothing"),
