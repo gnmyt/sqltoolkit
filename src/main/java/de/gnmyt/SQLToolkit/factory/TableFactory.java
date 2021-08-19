@@ -12,6 +12,11 @@ public class TableFactory {
 
     private final MySQLConnection connection;
 
+    /**
+     * Basic constructor of the {@link TableFactory}
+     *
+     * @param connection The mysql connection
+     */
     public TableFactory(MySQLConnection connection) {
         this.connection = connection;
     }
