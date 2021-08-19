@@ -65,7 +65,7 @@ public class DataBaseSelection {
      * @return this class
      */
     public DataBaseSelection from(String tableName) {
-        this.tableName = connection.getTablePrefix().isEmpty() ? tableName : connection.getTablePrefix() + tableName;
+        this.tableName = tableName;
         return this;
     }
 

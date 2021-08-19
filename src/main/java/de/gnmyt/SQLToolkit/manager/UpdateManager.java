@@ -76,9 +76,7 @@ public class UpdateManager {
             messageBuilder.append((added.get()) ? ", " : "").append(v);
             added.set(true);
         });
-        StackTraceElement[] st = Thread.currentThread().getStackTrace();
-        StackTraceElement stack = st[st.length - 1];
-        LOG.debug("DEBUG <" + stack.getFileName() + ":" + stack.getLineNumber() + "> Statement: " + messageBuilder);
+        LOG.debug("Statement: " + messageBuilder);
         return this;
     }
 
@@ -109,7 +107,7 @@ public class UpdateManager {
      * @return this class
      */
     public UpdateManager toTable(String tableName) {
-        this.tableName = connection.getTablePrefix().isEmpty() ? tableName : connection.getTablePrefix() + tableName;
+        this.tableName = tableName;
         return this;
     }
 
