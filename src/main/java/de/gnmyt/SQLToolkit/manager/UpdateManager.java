@@ -13,9 +13,9 @@ public class UpdateManager {
     private final Logger LOG = MySQLConnection.LOG;
 
     private final MySQLConnection connection;
-    private String tableName;
     private final HashMap<String, Object> whereList;
     private final HashMap<String, Object> setList;
+    private String tableName;
 
     /**
      * Basic constructor for the UpdateManager

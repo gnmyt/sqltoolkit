@@ -23,12 +23,11 @@ public class MySQLConnection {
     private final String username;
     private final String password;
     private final String database;
-
+    private final TableFactory tableFactory = new TableFactory(this);
     private String tablePrefix = "";
     private String tablePrefixVariable = "";
     private String connectString = "";
     private Connection con;
-    private final TableFactory tableFactory = new TableFactory(this);
 
     /**
      * Basic constructor for the connection

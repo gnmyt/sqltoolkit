@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class InsertManager {
 
     private final MySQLConnection connection;
-    private String tableName;
     private final HashMap<String, Object> values;
+    private String tableName;
 
     /**
      * Basic constructor for the InsertManager

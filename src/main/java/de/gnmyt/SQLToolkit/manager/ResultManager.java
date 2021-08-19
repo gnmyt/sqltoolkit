@@ -130,6 +130,7 @@ public class ResultManager {
 
     /**
      * Checks if the current result exists
+     *
      * @return <code>true</code> if the current result exists, otherwise <code>false</code>
      */
     public boolean exists() {

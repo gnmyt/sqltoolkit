@@ -118,6 +118,7 @@ public abstract class SQLTable {
 
     /**
      * Gets the database selection from the current the table
+     *
      * @return the database selection
      */
     public DataBaseSelection select() {
@@ -126,6 +127,7 @@ public abstract class SQLTable {
 
     /**
      * Gets the update manager of the current table
+     *
      * @return the update manager
      */
     public UpdateManager update() {
@@ -134,6 +136,7 @@ public abstract class SQLTable {
 
     /**
      * Gets the insert manager of the current table
+     *
      * @return the insert manager
      */
     public InsertManager insert() {
