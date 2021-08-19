@@ -22,8 +22,9 @@ public class DataBaseSelection {
 
     /**
      * Basic constructor for selection
+     *
      * @param connection The current Connection
-     * @param tableName The table name
+     * @param tableName  The table name
      */
     public DataBaseSelection(MySQLConnection connection, String tableName) {
         this.whereList = new HashMap<>();
@@ -35,6 +36,7 @@ public class DataBaseSelection {
 
     /**
      * Basic constructor for selection
+     *
      * @param connection The current Connection
      */
     public DataBaseSelection(MySQLConnection connection) {
@@ -46,6 +48,7 @@ public class DataBaseSelection {
 
     /**
      * Get the temp-generated parameters
+     *
      * @return ArrayList of parameters
      */
     private ArrayList<Object> getTempParams() {
@@ -57,6 +60,7 @@ public class DataBaseSelection {
 
     /**
      * Sets the table name
+     *
      * @param tableName The table name
      * @return this class
      */
@@ -67,8 +71,9 @@ public class DataBaseSelection {
 
     /**
      * Adding another 'where'-statement
+     *
      * @param column Table column name
-     * @param value Table value name
+     * @param value  Table value name
      * @return this class
      */
     public DataBaseSelection where(String column, Object value) {
@@ -78,6 +83,7 @@ public class DataBaseSelection {
 
     /**
      * Sets the limit of the rows
+     *
      * @param limit The new limit
      * @return this class
      */
@@ -88,6 +94,7 @@ public class DataBaseSelection {
 
     /**
      * Sets the limit of the rows
+     *
      * @param limit The new limit
      * @return this class
      */
@@ -98,6 +105,7 @@ public class DataBaseSelection {
 
     /**
      * Get the ResultManager
+     *
      * @return ResultManager
      */
     public ResultManager getResult() {
@@ -106,6 +114,7 @@ public class DataBaseSelection {
 
     /**
      * Get the ResultSet
+     *
      * @return ResultSet
      */
     public ResultSet getResultSet() {
@@ -114,6 +123,7 @@ public class DataBaseSelection {
 
     /**
      * Debug the current Statement
+     *
      * @return this class
      */
     public DataBaseSelection printStatement() {
@@ -121,16 +131,20 @@ public class DataBaseSelection {
         messageBuilder.append(processStatement());
         messageBuilder.append(" | params» ");
         AtomicBoolean added = new AtomicBoolean(false);
-        getTempParams().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
+        getTempParams().forEach(v -> {
+            messageBuilder.append((added.get()) ? ", " : "").append(v);
+            added.set(true);
+        });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
-        StackTraceElement stack = st[st.length-1];
-        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        StackTraceElement stack = st[st.length - 1];
+        LOG.debug("DEBUG <" + stack.getFileName() + ":" + stack.getLineNumber() + "> Statement: " + messageBuilder);
         return this;
     }
 
     /**
      * Adding another factors
-     * @param query MySQL Query
+     *
+     * @param query  MySQL Query
      * @param params Optional parameters for the Query
      * @return this class
      */
@@ -142,13 +156,19 @@ public class DataBaseSelection {
 
     /**
      * Get the current statement query
+     *
      * @return the current statement query
      */
     private String processStatement() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT * FROM ").append(tableName).append(" ");
         AtomicBoolean used = new AtomicBoolean(false);
-        whereList.forEach((k, v) -> { if (!used.get()) sb.append("WHERE ");else sb.append("AND ");used.set(true);sb.append(k).append(" = ? "); });
+        whereList.forEach((k, v) -> {
+            if (!used.get()) sb.append("WHERE ");
+            else sb.append("AND ");
+            used.set(true);
+            sb.append(k).append(" = ? ");
+        });
         if (limit != 0) sb.append("LIMIT ").append(limit);
         optionalQuery.forEach(v -> sb.append(" ").append(v).append(" "));
         return sb.toString();

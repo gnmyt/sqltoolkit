@@ -15,6 +15,7 @@ public enum LoginParam {
 
     /**
      * Basic constructor for the LoginParam enum
+     *
      * @param value JDBC parameter
      */
     LoginParam(String value) {
@@ -23,6 +24,7 @@ public enum LoginParam {
 
     /**
      * Get the JDBC value
+     *
      * @return the value
      */
     public String getValue() {

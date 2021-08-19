@@ -15,7 +15,8 @@ public class TableGenerator {
 
     /**
      * Basic constructor for the TableGenerator
-     * @param tableName     Name of the table
+     *
+     * @param tableName Name of the table
      */
     public TableGenerator(MySQLConnection connection, String tableName) {
         this.tableName = tableName;
@@ -36,10 +37,11 @@ public class TableGenerator {
 
     /**
      * Add a field to the Table
-     * @param type The type of the field you want to add
-     * @param name The name of the field you want to add
-     * @param length The length of the field you want to add
-     * @param defaultValue The default value of the field (leave empty for no default value)
+     *
+     * @param type               The type of the field you want to add
+     * @param name               The name of the field you want to add
+     * @param length             The length of the field you want to add
+     * @param defaultValue       The default value of the field (leave empty for no default value)
      * @param optionalParameters Optional parameters you want to add to the statement
      * @return this class
      */
@@ -58,8 +60,9 @@ public class TableGenerator {
 
     /**
      * Add a field to the Table
-     * @param type The type of the field you want to add
-     * @param name The name of the field you want to add
+     *
+     * @param type   The type of the field you want to add
+     * @param name   The name of the field you want to add
      * @param length The length of the field you want to add
      * @return this class
      */
@@ -74,6 +77,7 @@ public class TableGenerator {
 
     /**
      * Add a field to the Table
+     *
      * @param type The type of the field you want to add
      * @param name The name of the field you want to add
      * @return this class
@@ -84,6 +88,7 @@ public class TableGenerator {
 
     /**
      * Creates the table you wanted
+     *
      * @return this class
      */
     public TableGenerator create() {

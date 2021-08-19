@@ -7,12 +7,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class InsertManager {
 
-    private MySQLConnection connection;
+    private final MySQLConnection connection;
     private String tableName;
-    private HashMap<String, Object> values;
+    private final HashMap<String, Object> values;
 
     /**
      * Basic constructor for the InsertManager
+     *
      * @param connection The current connection
      */
     public InsertManager(MySQLConnection connection) {
@@ -22,8 +23,9 @@ public class InsertManager {
 
     /**
      * Constructor with direct tableName integration
+     *
      * @param connection The current connection
-     * @param tableName The name of the table
+     * @param tableName  The name of the table
      */
     public InsertManager(MySQLConnection connection, String tableName) {
         this.connection = connection;
@@ -33,6 +35,7 @@ public class InsertManager {
 
     /**
      * Optionally add the tableName / Change the name of the table
+     *
      * @param tableName The name of the table
      */
     public void from(String tableName) {
@@ -41,8 +44,9 @@ public class InsertManager {
 
     /**
      * Query value
+     *
      * @param fieldName The name of the column
-     * @param value The value of the object you want to insert
+     * @param value     The value of the object you want to insert
      * @return this class
      */
     public InsertManager value(String fieldName, Object value) {
@@ -52,6 +56,7 @@ public class InsertManager {
 
     /**
      * Prepares the SQL Query
+     *
      * @return the SQL Query
      */
     public String prepareStatement() {
@@ -66,7 +71,7 @@ public class InsertManager {
         query.append(")");
         if (values.size() > 0) query.append(" VALUES (");
         AtomicBoolean used_values = new AtomicBoolean(false);
-        for (int i=0; i < values.size(); i++) {
+        for (int i = 0; i < values.size(); i++) {
             if (used_values.get()) query.append(", ");
             used_values.set(true);
             query.append("?");
@@ -77,6 +82,7 @@ public class InsertManager {
 
     /**
      * Execute the current SQL query
+     *
      * @return this class
      */
     public InsertManager execute() {

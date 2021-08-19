@@ -12,13 +12,14 @@ public class UpdateManager {
 
     private final Logger LOG = MySQLConnection.LOG;
 
-    private MySQLConnection connection;
+    private final MySQLConnection connection;
     private String tableName;
-    private HashMap<String, Object> whereList;
-    private HashMap<String, Object> setList;
+    private final HashMap<String, Object> whereList;
+    private final HashMap<String, Object> setList;
 
     /**
      * Basic constructor for the UpdateManager
+     *
      * @param connection Existing MySQL connection
      */
     public UpdateManager(MySQLConnection connection) {
@@ -29,10 +30,11 @@ public class UpdateManager {
 
     /**
      * Basic constructor for the UpdateManager
+     *
      * @param connection Existing MySQL connection
-     * @param tableName Table name
+     * @param tableName  Table name
      */
-    public UpdateManager(MySQLConnection connection, String tableName){
+    public UpdateManager(MySQLConnection connection, String tableName) {
         this.connection = connection;
         toTable(tableName);
         this.whereList = new HashMap<>();
@@ -41,6 +43,7 @@ public class UpdateManager {
 
     /**
      * Get the parameters for the SQL statement
+     *
      * @return the parameters
      */
     private ArrayList<Object> getTempParams() {
@@ -52,6 +55,7 @@ public class UpdateManager {
 
     /**
      * Get the current connection
+     *
      * @return MySQL connection
      */
     public MySQLConnection getConnection() {
@@ -60,6 +64,7 @@ public class UpdateManager {
 
     /**
      * Print the deletion statement
+     *
      * @return this class
      */
     public UpdateManager printDeleteStatement() {
@@ -67,15 +72,19 @@ public class UpdateManager {
         messageBuilder.append(processDeleteStatement());
         messageBuilder.append(" | params» ");
         AtomicBoolean added = new AtomicBoolean(false);
-        whereList.values().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
+        whereList.values().forEach(v -> {
+            messageBuilder.append((added.get()) ? ", " : "").append(v);
+            added.set(true);
+        });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
-        StackTraceElement stack = st[st.length-1];
-        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        StackTraceElement stack = st[st.length - 1];
+        LOG.debug("DEBUG <" + stack.getFileName() + ":" + stack.getLineNumber() + "> Statement: " + messageBuilder);
         return this;
     }
 
     /**
      * Print the update statement
+     *
      * @return this class
      */
     public UpdateManager printUpdateStatement() {
@@ -83,15 +92,19 @@ public class UpdateManager {
         messageBuilder.append(processUpdateStatement());
         messageBuilder.append(" | params» ");
         AtomicBoolean added = new AtomicBoolean(false);
-        getTempParams().forEach(v -> { messageBuilder.append((added.get()) ? ", " : "").append(v);added.set(true); });
+        getTempParams().forEach(v -> {
+            messageBuilder.append((added.get()) ? ", " : "").append(v);
+            added.set(true);
+        });
         StackTraceElement[] st = Thread.currentThread().getStackTrace();
-        StackTraceElement stack = st[st.length-1];
-        LOG.debug("DEBUG <" + stack.getFileName()+":"+stack.getLineNumber()  + "> Statement: " + messageBuilder.toString());
+        StackTraceElement stack = st[st.length - 1];
+        LOG.debug("DEBUG <" + stack.getFileName() + ":" + stack.getLineNumber() + "> Statement: " + messageBuilder);
         return this;
     }
 
     /**
      * Change the tableName
+     *
      * @param tableName New tableName
      * @return this class
      */
@@ -102,8 +115,9 @@ public class UpdateManager {
 
     /**
      * Add a 'where'-clause
+     *
      * @param column Table column
-     * @param value Value of the column
+     * @param value  Value of the column
      * @return this class
      */
     public UpdateManager where(String column, Object value) {
@@ -113,8 +127,9 @@ public class UpdateManager {
 
     /**
      * Add a 'set'-clause
+     *
      * @param column Table column
-     * @param value Value of the column
+     * @param value  Value of the column
      * @return this class
      */
     public UpdateManager set(String column, Object value) {
@@ -124,6 +139,7 @@ public class UpdateManager {
 
     /**
      * Delete the entries with your current conditions
+     *
      * @return this class
      */
     public UpdateManager delete() {
@@ -133,6 +149,7 @@ public class UpdateManager {
 
     /**
      * Update the entries with your current conditions
+     *
      * @return this class
      */
     public UpdateManager update() {
@@ -142,6 +159,7 @@ public class UpdateManager {
 
     /**
      * Get the Query of the 'update'-Statement
+     *
      * @return the Statement
      */
     private String processUpdateStatement() {
@@ -166,6 +184,7 @@ public class UpdateManager {
 
     /**
      * Get the Query of the 'delete'-Statement
+     *
      * @return
      */
     private String processDeleteStatement() {
@@ -184,6 +203,7 @@ public class UpdateManager {
 
     /**
      * Generate a new Table (with prefilled tableName)
+     *
      * @param tableName Name of the new table
      * @return the de.gnmyt.SQLToolkit.generator
      */
@@ -193,6 +213,7 @@ public class UpdateManager {
 
     /**
      * Generate a new Table
+     *
      * @return the de.gnmyt.SQLToolkit.generator
      */
     public TableGenerator generateTable() {

@@ -9,7 +9,7 @@ public class TableFactory {
 
     private final HashMap<Class<? extends SQLTable>, SQLTable> REGISTERED_TABLES = new HashMap<>();
 
-    private MySQLConnection connection;
+    private final MySQLConnection connection;
 
     public TableFactory(MySQLConnection connection) {
         this.connection = connection;
@@ -17,6 +17,7 @@ public class TableFactory {
 
     /**
      * Registers and creates a sql table
+     *
      * @param table The table you want to register
      * @return this class
      */
@@ -28,6 +29,7 @@ public class TableFactory {
 
     /**
      * Gets a registered table from the list
+     *
      * @param tableClass The class of the table you want to get
      * @return the instance of the table
      */

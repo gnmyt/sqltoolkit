@@ -28,7 +28,7 @@ public class MySQLConnection {
     private String tablePrefixVariable = "";
     private String connectString = "";
     private Connection con;
-    private TableFactory tableFactory = new TableFactory(this);
+    private final TableFactory tableFactory = new TableFactory(this);
 
     /**
      * Basic constructor for the connection
@@ -194,6 +194,7 @@ public class MySQLConnection {
 
     /**
      * Gets the table factory
+     *
      * @return the table factory
      */
     public TableFactory getTableFactory() {
@@ -267,6 +268,7 @@ public class MySQLConnection {
 
     /**
      * Get the current table Prefix
+     *
      * @return the prefix
      */
     public String getTablePrefix() {

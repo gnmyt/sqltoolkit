@@ -12,6 +12,7 @@ public enum SQLType {
 
     /**
      * Basic constructor for the SQLType enum
+     *
      * @param value MySQL data type
      */
     SQLType(String value) {
@@ -20,6 +21,7 @@ public enum SQLType {
 
     /**
      * Get the value of the chosen enum
+     *
      * @return
      */
     public String getValue() {
