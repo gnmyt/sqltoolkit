@@ -11,7 +11,7 @@ public enum LoginParam {
     USE_TIMEZONE("useTimezone=true"),
     TIMEZONE_UTC("serverTimezone=UTC");
 
-    private String value;
+    private final String value;
 
     /**
      * Basic constructor for the LoginParam enum
