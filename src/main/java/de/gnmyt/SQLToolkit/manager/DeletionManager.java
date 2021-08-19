@@ -82,7 +82,7 @@ public class DeletionManager {
      * Executes the 'delete'-statement
      */
     public void execute() {
-        connection.update(prepareStatement(), getTempParams());
+        connection.update(prepareStatement(), getTempParams().toArray());
     }
 
     /**
