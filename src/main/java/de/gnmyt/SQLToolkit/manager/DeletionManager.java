@@ -14,7 +14,7 @@ public class DeletionManager {
     private final MySQLConnection connection;
     private final HashMap<String, Object> whereList;
     private final ArrayList<Object> databaseParameters;
-    public ArrayList<String> optionalQuery;
+    private ArrayList<String> optionalQuery;
     private String tableName;
 
     /**
