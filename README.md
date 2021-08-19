@@ -55,27 +55,32 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
    - USE_UNICODE *(useUnicode=yes)*
    - USE_TIMEZONE *(useTimezone=true)*
    - TIMEZONE_UTC *(serverTimezone=UTC)*
-2. Perform a standard SQL query
+2. Perform a default SQL query
    - Get a ResultSet
      ```java
-     connection.getResultSet("default query", "parameters");
+     connection.getResultSet("SELECT * FROM example WHERE test = ?", "test1");
      ```
    - Perform an update
      ```java
-     connection.update("query", "parameters");
+     connection.update("UPDATE example SET test = ? WHERE abc = ?", "test1", "test2");
      ```
 3. Get something from a table with managers
-   1. Getting a Result (For one result)
+   1. Getting a string from the table
       ```java
       String value = connection.getResult("query", "parameters")
                                .getString("column");
       ```
-   2. Getting Results (For more than one)
+   2. Getting a list from the table
       ```java
       ArrayList<String> list = connection.getResult("query", "parameters")
                                          .getList("column");
       ```
-   3. Choosing Results
+      or
+      ```java
+      ArrayList<HashMap<String, Object>> list = connection.getResult("query", "parameters")
+                                         .getList();
+      ```
+   4. Choosing Results
       ```java
       connection
             .selectFrom("table")
@@ -83,35 +88,120 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
             .limit(10)
             .getResult();
       ```
-   4. Choosing Results + Print the current statement
+   5. Choosing Results with custom parameters
       ```java
       connection.select()
              .from("table")
              .where("column", "value")
              .add("LIMIT 2,5")
-             .printStatement();
+             .getResult();
       ```
 4. Perform an update using managers
    1. Update a Table
       ```java
       connection
-            .update()
-            .toTable("table")
+            .updateTo("table")
             .where("column", "value")
             .set("column", "newValue")
-            .update();
+            .execute();
       ```
    2. Generate a Table
       ```java
       connection
-            .update()
             .generateTable("table")
-            .useID()
-            .addField(new SQLField(SQLType.STRING, "column", 999))
-            .addField(new SQLField(SQLType.STRING, "column2", 25))
+            .addField(SQLType.STRING, "column", 999)
+            .addField(SQLType.STRING, "column2", 25)
             .create();
       ```
+   3. Delete something from a table
+         ```java
+      connection
+            .deleteFrom("table")
+            .where("column", "value")
+            .execute();
+      ```
+5. The use of the table factory
+   1. Create a new table class
+   ```java
+   import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+   import de.gnmyt.SQLToolkit.storage.SQLTable;
+
+   public class ExampleTable extends SQLTable {
    
+        public ExampleTable(MySQLConnection connection) {
+            super(connection);
+        }
+
+        @Override
+        protected String tableName() {
+            return "example";
+        }
+
+        @Override
+        protected void tableFields() {
+            string("column1", 255, "default");
+            string("colum2", 100, "test2");
+            integer("colum3", 2, "");
+        }
+   
+        public void addSomething() {
+            insert()
+                .value("column1", "test")
+                .value("colum3", 52)
+                .execute();
+        }
+   
+        public void deleteUser() {
+            delete()
+                .where("column1", "test")
+                .execute();
+        }
+   }
+   ```
+   2. Register your table
+   ```java
+   connection.getTableFactory().register(new ExampleTable(connection));
+   ```
+   3. Now you can access your table from everywhere
+   ```java
+   ((ExampleTable) connection.getTableFactory().getTable(ExampleTable.class))
+                .addSomething();
+   ```
+6. The use of the table factory with storage mediums
+   1. Create a new storage medium class
+   ```java
+   import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+   import de.gnmyt.SQLToolkit.storage.SQLStorageMedium;
+
+   public class ExampleStorage extends SQLStorageMedium {
+       
+        public ExampleStorage(MySQLConnection connection) {
+            super(connection);
+        }
+
+        @Override
+        protected String tableName() {
+            return "example_storage";
+        }
+   }
+   ```
+   2. Register your storage
+   ```java
+   connection.getTableFactory().register(new ExampleStorage(connection));
+   ```
+   3. Now you can access your storage medium from everywhere.
+   Try something like that:
+   ```java
+   SQLStorageMedium storage = connection.getTableFactory().getStorage(ExampleStorage.class);
+        
+   storage.insert("username", "test");
+   String username = storage.get("username");
+   storage.delete("username");
+        
+   storage.insertOrUpdate("version", "1.0.0");
+        
+   storage.getEntries();
+   ```
    
 ## License
 
