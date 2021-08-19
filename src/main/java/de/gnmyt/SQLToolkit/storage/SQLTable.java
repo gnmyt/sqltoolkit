@@ -1,8 +1,8 @@
 package de.gnmyt.SQLToolkit.storage;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
+import de.gnmyt.SQLToolkit.manager.SelectionManager;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import de.gnmyt.SQLToolkit.types.SQLType;
 import de.gnmyt.SQLToolkit.types.TableField;
@@ -121,7 +121,7 @@ public abstract class SQLTable {
      *
      * @return the database selection
      */
-    public DataBaseSelection select() {
+    public SelectionManager select() {
         return connection.selectFrom(tableName());
     }
 

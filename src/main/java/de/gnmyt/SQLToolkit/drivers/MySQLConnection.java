@@ -2,9 +2,9 @@ package de.gnmyt.SQLToolkit.drivers;
 
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
 import de.gnmyt.SQLToolkit.factory.TableFactory;
-import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
+import de.gnmyt.SQLToolkit.manager.SelectionManager;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import de.gnmyt.SQLToolkit.types.LoginParam;
 import org.slf4j.Logger;
@@ -157,8 +157,8 @@ public class MySQLConnection {
      * @param tableName The name of the table
      * @return DatabaseSelection
      */
-    public DataBaseSelection selectFrom(String tableName) {
-        return new DataBaseSelection(this, tableName);
+    public SelectionManager selectFrom(String tableName) {
+        return new SelectionManager(this, tableName);
     }
 
     /**
@@ -166,8 +166,8 @@ public class MySQLConnection {
      *
      * @return DatabaseSelection
      */
-    public DataBaseSelection select() {
-        return new DataBaseSelection(this);
+    public SelectionManager select() {
+        return new SelectionManager(this);
     }
 
     /**
