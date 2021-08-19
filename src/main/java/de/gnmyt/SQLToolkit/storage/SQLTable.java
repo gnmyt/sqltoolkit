@@ -82,25 +82,10 @@ public abstract class SQLTable {
      * Adds a boolean to the table (without allowNull)
      *
      * @param name         The name of the boolean you want to add
-     * @param length       The length of the boolean you want to add
-     * @param defaultValue The default value of the boolean you want to add (leave empty if you don't want to use one)
      * @param extras       The extras you want to add to the boolean
      */
-    protected void bool(String name, int length, String defaultValue, String... extras) {
-        custom(SQLType.BOOLEAN.getValue(), name, length, false, defaultValue, extras);
-    }
-
-    /**
-     * Adds a boolean to the table (with allowNull)
-     *
-     * @param name         The name of the boolean you want to add
-     * @param length       The length of the boolean you want to add
-     * @param allowNull    <code>true</code> if you want to allow a <b>NULL</b> in the field, otherwise <code>false</code>
-     * @param defaultValue The default value of the boolean you want to add (leave empty if you don't want to use one)
-     * @param extras       The extras you want to add to the boolean
-     */
-    protected void bool(String name, int length, boolean allowNull, String defaultValue, String... extras) {
-        custom(SQLType.BOOLEAN.getValue(), name, length, allowNull, defaultValue, extras);
+    protected void bool(String name, String... extras) {
+        custom(SQLType.BOOLEAN.getValue(), name, 1, false, "", extras);
     }
 
     /**
