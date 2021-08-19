@@ -62,6 +62,16 @@ public abstract class SQLStorageMedium extends SQLTable {
     }
 
     /**
+     * Gets the value of a key
+     *
+     * @param key The key of the value you want to get
+     * @return the value you want to get
+     */
+    public String get(String key) {
+        return select().where("keyName", key).getResult().getString("value");
+    }
+
+    /**
      * Gets all entries from the storage medium
      *
      * @return the entries from the storage medium
