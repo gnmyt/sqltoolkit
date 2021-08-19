@@ -141,6 +141,7 @@ public class MySQLConnection {
 
     /**
      * Gets the table generator
+     *
      * @param tableName The name of the table
      * @return the instance of the table generator
      */
@@ -198,6 +199,7 @@ public class MySQLConnection {
 
     /**
      * Gets the deletion manager for easier deleting rows in a table
+     *
      * @return the deletion manager
      */
     public DeletionManager delete() {
@@ -206,6 +208,7 @@ public class MySQLConnection {
 
     /**
      * Gets the deletion manager for easier deleting rows in a table
+     *
      * @param tableName The name of the table you want to delete a row from
      * @return the deletion manager
      */

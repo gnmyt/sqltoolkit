@@ -146,6 +146,7 @@ public abstract class SQLTable {
 
     /**
      * Gets the deletion manager of the current table
+     *
      * @return the deletion manager
      */
     public DeletionManager delete() {
