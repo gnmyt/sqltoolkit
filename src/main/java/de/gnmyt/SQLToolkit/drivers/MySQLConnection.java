@@ -209,7 +209,7 @@ public class MySQLConnection {
      * @param tableName The name of the table you want to delete a row from
      * @return the deletion manager
      */
-    public DeletionManager delete(String tableName) {
+    public DeletionManager deleteFrom(String tableName) {
         return new DeletionManager(this, tableName);
     }
 

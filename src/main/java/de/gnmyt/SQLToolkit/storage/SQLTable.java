@@ -149,7 +149,7 @@ public abstract class SQLTable {
      * @return the deletion manager
      */
     public DeletionManager delete() {
-        return connection.delete(tableName());
+        return connection.deleteFrom(tableName());
     }
 
     /**
