@@ -91,7 +91,7 @@ public class UpdateManager {
      *
      * @return this class
      */
-    public UpdateManager update() {
+    public UpdateManager execute() {
         connection.update(prepareUpdateStatement(), getTempParams().toArray());
         return this;
     }
