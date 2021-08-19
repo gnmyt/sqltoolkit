@@ -68,12 +68,12 @@ public class MySQLConnection {
      */
     public ResultSet getResultSet(String query, Object... params) {
         try {
-            int start = 1;
             PreparedStatement ps = con.prepareStatement(query);
-            for (Object current : params) {
-                ps.setObject(start, current);
-                start++;
+
+            for (int i = 0; i < params.length; i++) {
+                ps.setObject(i+1, params[i]);
             }
+
             return ps.executeQuery();
         } catch (Exception err) {
             LOG.error(err.getMessage());
