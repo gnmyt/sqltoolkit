@@ -18,13 +18,23 @@
 This is a small project for quickly managing a MySQL database in Java. It makes everyday life with a database much easier.
 
 ### Installation 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/gnmyt/sqltoolkit.git
+1. Add the jitpack repository to your `pom.xml`
+   ```xml
+   <repositories>
+      <repository>
+         <id>jitpack.io</id>
+         <url>https://jitpack.io</url>
+      </repository>
+   </repositories>
    ```
-2. Move the project into a package of your project (in most cases "sql")
-3. Ready! Have fun
-#### Maven coming soon
+2. Add the dependency to your `pom.xml`
+   ```xml
+   <dependency>
+	    <groupId>com.github.gnmyt</groupId>
+	    <artifactId>sqltoolkit</artifactId>
+	    <version>master-SNAPSHOT</version>
+   </dependency>
+   ```
 
 ### Usage Examples
 1. Create a connection
