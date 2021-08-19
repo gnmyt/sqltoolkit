@@ -2,6 +2,7 @@ package de.gnmyt.SQLToolkit.drivers;
 
 import de.gnmyt.SQLToolkit.api.SQLConsumer;
 import de.gnmyt.SQLToolkit.factory.TableFactory;
+import de.gnmyt.SQLToolkit.generator.TableGenerator;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
 import de.gnmyt.SQLToolkit.manager.SelectionManager;
@@ -139,6 +140,15 @@ public class MySQLConnection {
      */
     public UpdateManager update() {
         return new UpdateManager(this);
+    }
+
+    /**
+     * Gets the table generator
+     * @param tableName The name of the table
+     * @return the instance of the table generator
+     */
+    public TableGenerator generateTable(String tableName) {
+        return new TableGenerator(this, tableName);
     }
 
     /**
