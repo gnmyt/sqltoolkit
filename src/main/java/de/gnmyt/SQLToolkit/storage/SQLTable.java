@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.storage;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.manager.DeletionManager;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.SelectionManager;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
@@ -131,7 +132,7 @@ public abstract class SQLTable {
      * @return the update manager
      */
     public UpdateManager update() {
-        return connection.updateTable(tableName());
+        return connection.update(tableName());
     }
 
     /**
@@ -141,6 +142,14 @@ public abstract class SQLTable {
      */
     public InsertManager insert() {
         return connection.insertTo(tableName());
+    }
+
+    /**
+     * Gets the deletion manager of the current table
+     * @return the deletion manager
+     */
+    public DeletionManager delete() {
+        return connection.delete(tableName());
     }
 
     /**

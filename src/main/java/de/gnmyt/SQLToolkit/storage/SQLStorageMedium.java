@@ -49,7 +49,7 @@ public abstract class SQLStorageMedium extends SQLTable {
      * @param value The value you want to update
      */
     public void update(String key, String value) {
-        update().where("keyName", key).set("value", value).update();
+        update().where("keyName", key).set("value", value).execute();
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class SQLStorageMedium extends SQLTable {
      * @param key The key you want to delete
      */
     public void delete(String key) {
-        update().where("keyName", key).delete();
+        delete().where("keyName", key).execute();
     }
 
     /**
