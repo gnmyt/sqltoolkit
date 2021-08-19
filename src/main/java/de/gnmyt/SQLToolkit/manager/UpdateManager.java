@@ -1,12 +1,10 @@
 package de.gnmyt.SQLToolkit.manager;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.generator.TableGenerator;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UpdateManager {
 
@@ -42,6 +40,17 @@ public class UpdateManager {
     }
 
     /**
+     * Change the tableName
+     *
+     * @param tableName New tableName
+     * @return this class
+     */
+    public UpdateManager toTable(String tableName) {
+        this.tableName = tableName;
+        return this;
+    }
+
+    /**
      * Get the parameters for the SQL statement
      *
      * @return the parameters
@@ -51,64 +60,6 @@ public class UpdateManager {
         setList.forEach((str, obj) -> tempParams.add(obj));
         whereList.forEach((str, obj) -> tempParams.add(obj));
         return tempParams;
-    }
-
-    /**
-     * Get the current connection
-     *
-     * @return MySQL connection
-     */
-    public MySQLConnection getConnection() {
-        return connection;
-    }
-
-    /**
-     * Print the deletion statement
-     *
-     * @return this class
-     */
-    public UpdateManager printDeleteStatement() {
-        StringBuilder messageBuilder = new StringBuilder();
-        messageBuilder.append(processDeleteStatement());
-        messageBuilder.append(" | params» ");
-        AtomicBoolean added = new AtomicBoolean(false);
-        whereList.values().forEach(v -> {
-            messageBuilder.append((added.get()) ? ", " : "").append(v);
-            added.set(true);
-        });
-        LOG.debug("Statement: " + messageBuilder);
-        return this;
-    }
-
-    /**
-     * Print the update statement
-     *
-     * @return this class
-     */
-    public UpdateManager printUpdateStatement() {
-        StringBuilder messageBuilder = new StringBuilder();
-        messageBuilder.append(processUpdateStatement());
-        messageBuilder.append(" | params» ");
-        AtomicBoolean added = new AtomicBoolean(false);
-        getTempParams().forEach(v -> {
-            messageBuilder.append((added.get()) ? ", " : "").append(v);
-            added.set(true);
-        });
-        StackTraceElement[] st = Thread.currentThread().getStackTrace();
-        StackTraceElement stack = st[st.length - 1];
-        LOG.debug("DEBUG <" + stack.getFileName() + ":" + stack.getLineNumber() + "> Statement: " + messageBuilder);
-        return this;
-    }
-
-    /**
-     * Change the tableName
-     *
-     * @param tableName New tableName
-     * @return this class
-     */
-    public UpdateManager toTable(String tableName) {
-        this.tableName = tableName;
-        return this;
     }
 
     /**
@@ -136,22 +87,12 @@ public class UpdateManager {
     }
 
     /**
-     * Delete the entries with your current conditions
-     *
-     * @return this class
-     */
-    public UpdateManager delete() {
-        connection.update(processDeleteStatement(), whereList.values().toArray());
-        return this;
-    }
-
-    /**
      * Update the entries with your current conditions
      *
      * @return this class
      */
     public UpdateManager update() {
-        connection.update(processUpdateStatement(), getTempParams().toArray());
+        connection.update(prepareUpdateStatement(), getTempParams().toArray());
         return this;
     }
 
@@ -160,64 +101,23 @@ public class UpdateManager {
      *
      * @return the Statement
      */
-    private String processUpdateStatement() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE ").append(tableName);
-        if (!setList.isEmpty()) sb.append(" SET ");
-        AtomicBoolean used = new AtomicBoolean(false);
+    private String prepareUpdateStatement() {
+        StringBuilder query = new StringBuilder().append("UPDATE ").append(tableName);
+        if (!setList.isEmpty()) query.append(" SET ");
 
-        setList.forEach((str, obj) -> {
-            if (used.get()) sb.append(", ");
-            sb.append(str).append(" = ?");
-            used.set(true);
-        });
+        for (int i = 0; i < setList.size(); i++) {
+            if (i > 0) query.append(", ");
+            query.append(setList.keySet().toArray()[i]);
+        }
 
-        if (!whereList.isEmpty()) sb.append(" WHERE ");
-        AtomicBoolean used2 = new AtomicBoolean(false);
-        whereList.forEach((str, obj) -> {
-            if (used2.get()) sb.append(" AND ");
-            sb.append(str).append(" = ?");
-            used2.set(true);
-        });
-        return sb.toString();
-    }
+        if (!whereList.isEmpty()) query.append(" WHERE ");
 
-    /**
-     * Get the Query of the 'delete'-Statement
-     *
-     * @return
-     */
-    private String processDeleteStatement() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("DELETE FROM ").append(tableName);
-        if (!whereList.isEmpty()) sb.append(" WHERE ");
-        AtomicBoolean used = new AtomicBoolean(false);
-        whereList.forEach((str, obj) -> {
-            if (used.get()) sb.append(" AND ");
-            sb.append(str).append(" = ?");
-            used.set(true);
-        });
-        return sb.toString();
-    }
+        for (int i = 0; i < whereList.size(); i++) {
+            if (i > 0) query.append(" AND ");
+            query.append(whereList.keySet().toArray()[i]).append(" = ?");
+        }
 
-
-    /**
-     * Generate a new Table (with prefilled tableName)
-     *
-     * @param tableName Name of the new table
-     * @return the de.gnmyt.SQLToolkit.generator
-     */
-    public TableGenerator generateTable(String tableName) {
-        return new TableGenerator(this.getConnection(), tableName);
-    }
-
-    /**
-     * Generate a new Table
-     *
-     * @return the de.gnmyt.SQLToolkit.generator
-     */
-    public TableGenerator generateTable() {
-        return (tableName.isEmpty()) ? null : new TableGenerator(this.getConnection(), tableName);
+        return query.toString();
     }
 
 }
