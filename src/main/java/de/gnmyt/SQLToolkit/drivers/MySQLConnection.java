@@ -71,7 +71,7 @@ public class MySQLConnection {
             PreparedStatement ps = con.prepareStatement(query);
 
             for (int i = 0; i < params.length; i++) {
-                ps.setObject(i+1, params[i]);
+                ps.setObject(i + 1, params[i]);
             }
 
             return ps.executeQuery();
@@ -120,7 +120,7 @@ public class MySQLConnection {
             PreparedStatement ps = con.prepareStatement(query);
 
             for (int i = 0; i < params.length; i++) {
-                ps.setObject(i+1, params[i]);
+                ps.setObject(i + 1, params[i]);
             }
 
             ps.executeUpdate();

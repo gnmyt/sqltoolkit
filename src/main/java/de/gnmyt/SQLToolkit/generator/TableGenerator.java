@@ -14,7 +14,7 @@ public class TableGenerator {
     private final String tableName;
 
     /**
-     * Basic constructor for the TableGenerator
+     * Basic constructor for the {@link TableGenerator}
      *
      * @param tableName Name of the table
      */
