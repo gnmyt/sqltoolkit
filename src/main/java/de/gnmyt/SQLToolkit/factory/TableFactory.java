@@ -1,6 +1,7 @@
 package de.gnmyt.SQLToolkit.factory;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.storage.SQLStorageMedium;
 import de.gnmyt.SQLToolkit.storage.SQLTable;
 
 import java.util.HashMap;
@@ -35,6 +36,15 @@ public class TableFactory {
      */
     public SQLTable getTable(Class<? extends SQLTable> tableClass) {
         return REGISTERED_TABLES.get(tableClass);
+    }
+
+    /**
+     * Gets a storage medium from the list
+     * @param storageClass The class of the storage medium you want to get
+     * @return the storage medium
+     */
+    public SQLStorageMedium getStorage(Class<? extends SQLStorageMedium> storageClass) {
+        return (SQLStorageMedium) getTable(storageClass);
     }
 
 }
