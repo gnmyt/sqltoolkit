@@ -92,17 +92,6 @@ public class SelectionManager {
     }
 
     /**
-     * Sets the limit of the rows
-     *
-     * @param limit The new limit
-     * @return this class
-     */
-    public SelectionManager limit(String limit) {
-        this.limit = Integer.parseInt(limit);
-        return this;
-    }
-
-    /**
      * Get the ResultManager
      *
      * @return ResultManager
