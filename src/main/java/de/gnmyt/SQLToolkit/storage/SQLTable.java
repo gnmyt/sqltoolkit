@@ -1,6 +1,9 @@
 package de.gnmyt.SQLToolkit.storage;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
+import de.gnmyt.SQLToolkit.manager.InsertManager;
+import de.gnmyt.SQLToolkit.manager.UpdateManager;
 import de.gnmyt.SQLToolkit.types.SQLType;
 import de.gnmyt.SQLToolkit.types.TableField;
 
@@ -111,6 +114,30 @@ public abstract class SQLTable {
      */
     protected void custom(String type, String name, int length, boolean allowNull, String defaultValue, String... extras) {
         custom(new TableField(name, type, length, allowNull, defaultValue).setExtra(extras));
+    }
+
+    /**
+     * Gets the database selection from the current the table
+     * @return the database selection
+     */
+    public DataBaseSelection select() {
+        return connection.selectFrom(tableName());
+    }
+
+    /**
+     * Gets the update manager of the current table
+     * @return the update manager
+     */
+    public UpdateManager update() {
+        return connection.updateTable(tableName());
+    }
+
+    /**
+     * Gets the insert manager of the current table
+     * @return the insert manager
+     */
+    public InsertManager insert() {
+        return connection.insertTo(tableName());
     }
 
     /**
