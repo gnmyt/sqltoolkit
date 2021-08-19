@@ -2,6 +2,7 @@ package de.gnmyt.SQLToolkit.generator;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
 import de.gnmyt.SQLToolkit.types.SQLType;
+import de.gnmyt.SQLToolkit.types.TableField;
 
 import java.util.ArrayList;
 
@@ -14,8 +15,6 @@ public class TableGenerator {
 
     /**
      * Basic constructor for the TableGenerator
-     *
-     * @param updateManager Existing update de.gnmyt.SQLToolkit.manager
      * @param tableName     Name of the table
      */
     public TableGenerator(MySQLConnection connection, String tableName) {
@@ -66,6 +65,11 @@ public class TableGenerator {
      */
     public TableGenerator addField(SQLType type, String name, Integer length) {
         return addField(type, name, length, "");
+    }
+
+    public TableGenerator addField(TableField field) {
+        fields.add(field.generateSQLRow());
+        return this;
     }
 
     /**
