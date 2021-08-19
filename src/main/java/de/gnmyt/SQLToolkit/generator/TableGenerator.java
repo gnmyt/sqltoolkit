@@ -1,43 +1,32 @@
 package de.gnmyt.SQLToolkit.generator;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.fields.SQLField;
-import de.gnmyt.SQLToolkit.manager.UpdateManager;
+import de.gnmyt.SQLToolkit.types.SQLType;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TableGenerator {
 
-    private UpdateManager updateManager;
-    private ArrayList<String> fields;
-    private boolean useID;
-    private String tableName;
-    MySQLConnection connection;
+    private final MySQLConnection connection;
+
+    private final ArrayList<String> fields;
+    private final String tableName;
 
     /**
      * Basic constructor for the TableGenerator
+     *
      * @param updateManager Existing update de.gnmyt.SQLToolkit.manager
-     * @param tableName Name of the table
+     * @param tableName     Name of the table
      */
-    public TableGenerator(UpdateManager updateManager, String tableName) {
-        this.updateManager = updateManager;
+    public TableGenerator(MySQLConnection connection, String tableName) {
         this.tableName = tableName;
+        this.connection = connection;
         this.fields = new ArrayList<>();
-        connection = updateManager.getConnection();
-    }
-
-    /**
-     * Add an 'id' field to the Table
-     * @return this class
-     */
-    public TableGenerator useID() {
-        this.useID = true;
-        return this;
     }
 
     /**
      * Add a field to the Table
+     *
      * @param field String of the field
      * @return this class
      */
@@ -48,29 +37,63 @@ public class TableGenerator {
 
     /**
      * Add a field to the Table
-     * @param field Existing SQL Field
+     * @param type The type of the field you want to add
+     * @param name The name of the field you want to add
+     * @param length The length of the field you want to add
+     * @param defaultValue The default value of the field (leave empty for no default value)
+     * @param optionalParameters Optional parameters you want to add to the statement
      * @return this class
      */
-    public TableGenerator addField(SQLField field) {
-        String temp = "";
-        temp += "`" + field.getName() + "` " + field.getSqlType().getValue() + "(" + field.getLength() + ")";
-        temp += !field.getDefaultValue().isEmpty() ? " DEFAULT '" + field.getDefaultValue() + "'" : "";
-        temp += !field.getOptionalParameter().isEmpty() ? " " + field.getOptionalParameter() : "";
-        fields.add(temp);
+    public TableGenerator addField(SQLType type, String name, Integer length, String defaultValue, String... optionalParameters) {
+        StringBuilder temp = new StringBuilder();
+        temp.append("`").append(name).append("` ").append(type.getValue()).append("(").append(length).append(")");
+        temp.append(!defaultValue.isEmpty() ? " DEFAULT '" + defaultValue + "'" : "");
+
+        for (String optionalParameter : optionalParameters) {
+            temp.append(" ").append(optionalParameter);
+        }
+
+        fields.add(temp.toString());
         return this;
     }
 
     /**
-     * Create the table you wanted
+     * Add a field to the Table
+     * @param type The type of the field you want to add
+     * @param name The name of the field you want to add
+     * @param length The length of the field you want to add
+     * @return this class
+     */
+    public TableGenerator addField(SQLType type, String name, Integer length) {
+        return addField(type, name, length, "");
+    }
+
+    /**
+     * Add a field to the Table
+     * @param type The type of the field you want to add
+     * @param name The name of the field you want to add
+     * @return this class
+     */
+    public TableGenerator addField(SQLType type, String name) {
+        return addField(type, name, 255, "");
+    }
+
+    /**
+     * Creates the table you wanted
      * @return this class
      */
     public TableGenerator create() {
         StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE IF NOT EXISTS " + tableName + " ( ");
-        AtomicBoolean used = new AtomicBoolean(false);
-        if (useID) sb.append(used.get() ? ", " : "").append("`id` INT(255) NOT NULL AUTO_INCREMENT");used.set(true);
-        fields.forEach(string -> { sb.append(used.get() ? ", " : "").append(string);used.set(true); });
-        if (useID) sb.append(used.get() ? ", " : "").append("PRIMARY KEY (`id`)");used.set(true);
+        sb.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" ( ");
+
+        sb.append("`id` INT(255) NOT NULL AUTO_INCREMENT");
+
+        for (String field : fields) {
+            sb.append(", ").append(field);
+        }
+
+        sb.append(", PRIMARY KEY (`id`)");
+
         sb.append(" ) ENGINE = InnoDB;");
         connection.update(sb.toString());
         return this;

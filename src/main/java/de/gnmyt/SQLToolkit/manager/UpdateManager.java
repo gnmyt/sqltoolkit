@@ -188,7 +188,7 @@ public class UpdateManager {
      * @return the de.gnmyt.SQLToolkit.generator
      */
     public TableGenerator generateTable(String tableName) {
-        return new TableGenerator(this, tableName);
+        return new TableGenerator(this.getConnection(), tableName);
     }
 
     /**
@@ -196,7 +196,7 @@ public class UpdateManager {
      * @return the de.gnmyt.SQLToolkit.generator
      */
     public TableGenerator generateTable() {
-        return (tableName.isEmpty()) ? null : new TableGenerator(this, tableName);
+        return (tableName.isEmpty()) ? null : new TableGenerator(this.getConnection(), tableName);
     }
 
 }
