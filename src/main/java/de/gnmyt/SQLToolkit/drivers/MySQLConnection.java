@@ -82,7 +82,7 @@ public class MySQLConnection {
     }
 
     /**
-     * Get a result from your server (get the Manager)
+     * Get a result from your server (get the manager)
      *
      * @param query  Search query
      * @param params Optional parameters
@@ -93,11 +93,11 @@ public class MySQLConnection {
     }
 
     /**
-     * Run a action with a result from your server
+     * Run an action with a result from your server
      *
-     * @param query    Search query
-     * @param consumer consumer
-     * @param params   Optional parameters
+     * @param query    The search query
+     * @param consumer The consumer
+     * @param params   The optional parameters
      */
     public void getResult(String query, SQLConsumer<ResultSet> consumer, Object... params) {
         try {
@@ -131,12 +131,79 @@ public class MySQLConnection {
     }
 
     /**
-     * Get the update de.gnmyt.SQLToolkit.manager for easier updating
+     * Gets the {@link UpdateManager} for easier updating
      *
-     * @return Update de.gnmyt.SQLToolkit.manager
+     * @return the {@link UpdateManager}
      */
     public UpdateManager update() {
         return new UpdateManager(this);
+    }
+
+    /**
+     * Gets the {@link UpdateManager} for easier updating (pre-filled table)
+     *
+     * @param tableName The name of the table
+     * @return the {@link UpdateManager}
+     */
+    public UpdateManager updateTo(String tableName) {
+        return new UpdateManager(this, tableName);
+    }
+
+    /**
+     * Gets the {@link SelectionManager} for easier selection of tables
+     *
+     * @return The {@link SelectionManager}
+     */
+    public SelectionManager select() {
+        return new SelectionManager(this);
+    }
+
+    /**
+     * Gets the {@link SelectionManager} for easier selection of tables (pre-filled table)
+     *
+     * @param tableName The name of the table
+     * @return the {@link SelectionManager}
+     */
+    public SelectionManager selectFrom(String tableName) {
+        return new SelectionManager(this, tableName);
+    }
+
+    /**
+     * Gets the {@link InsertManager} for easier inserting to a table
+     *
+     * @return the {@link InsertManager}
+     */
+    public InsertManager insert() {
+        return new InsertManager(this);
+    }
+
+    /**
+     * Gets the {@link InsertManager} for easier inserting to a table
+     *
+     * @param tableName The name of the table you want to insert a object
+     * @return the {@link InsertManager}
+     */
+    public InsertManager insertTo(String tableName) {
+        return new InsertManager(this, tableName);
+    }
+
+    /**
+     * Gets the {@link DeletionManager} for easier deleting rows in a table
+     *
+     * @return the {@link DeletionManager}
+     */
+    public DeletionManager delete() {
+        return new DeletionManager(this);
+    }
+
+    /**
+     * Gets the {@link DeletionManager} for easier deleting rows in a table
+     *
+     * @param tableName The name of the table you want to delete a row from
+     * @return the {@link DeletionManager}
+     */
+    public DeletionManager deleteFrom(String tableName) {
+        return new DeletionManager(this, tableName);
     }
 
     /**
@@ -147,73 +214,6 @@ public class MySQLConnection {
      */
     public TableGenerator generateTable(String tableName) {
         return new TableGenerator(this, tableName);
-    }
-
-    /**
-     * Get the update de.gnmyt.SQLToolkit.manager for easier updating (pre filled table)
-     *
-     * @param tableName The name of the table
-     * @return Update de.gnmyt.SQLToolkit.manager
-     */
-    public UpdateManager updateTo(String tableName) {
-        return new UpdateManager(this, tableName);
-    }
-
-    /**
-     * Get the Database Selection for easier selection of tables (pre filled table)
-     *
-     * @param tableName The name of the table
-     * @return DatabaseSelection
-     */
-    public SelectionManager selectFrom(String tableName) {
-        return new SelectionManager(this, tableName);
-    }
-
-    /**
-     * Get the Database Selection for easier selection of tables
-     *
-     * @return DatabaseSelection
-     */
-    public SelectionManager select() {
-        return new SelectionManager(this);
-    }
-
-    /**
-     * Get the InsertManager for easier inserting to a table
-     *
-     * @return InsertManager
-     */
-    public InsertManager insert() {
-        return new InsertManager(this);
-    }
-
-    /**
-     * Get the InsertManager for easier inserting to a table
-     *
-     * @param tableName The name of the table you want to insert a object
-     * @return InsertManager
-     */
-    public InsertManager insertTo(String tableName) {
-        return new InsertManager(this, tableName);
-    }
-
-    /**
-     * Gets the deletion manager for easier deleting rows in a table
-     *
-     * @return the deletion manager
-     */
-    public DeletionManager delete() {
-        return new DeletionManager(this);
-    }
-
-    /**
-     * Gets the deletion manager for easier deleting rows in a table
-     *
-     * @param tableName The name of the table you want to delete a row from
-     * @return the deletion manager
-     */
-    public DeletionManager deleteFrom(String tableName) {
-        return new DeletionManager(this, tableName);
     }
 
     /**
