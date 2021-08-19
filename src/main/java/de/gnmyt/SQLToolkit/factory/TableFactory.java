@@ -40,6 +40,7 @@ public class TableFactory {
 
     /**
      * Gets a storage medium from the list
+     *
      * @param storageClass The class of the storage medium you want to get
      * @return the storage medium
      */

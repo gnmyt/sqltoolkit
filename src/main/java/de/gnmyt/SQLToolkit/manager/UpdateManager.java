@@ -167,11 +167,13 @@ public class UpdateManager {
         sb.append("UPDATE ").append(tableName);
         if (!setList.isEmpty()) sb.append(" SET ");
         AtomicBoolean used = new AtomicBoolean(false);
+
         setList.forEach((str, obj) -> {
             if (used.get()) sb.append(", ");
             sb.append(str).append(" = ?");
             used.set(true);
         });
+
         if (!whereList.isEmpty()) sb.append(" WHERE ");
         AtomicBoolean used2 = new AtomicBoolean(false);
         whereList.forEach((str, obj) -> {
