@@ -5,7 +5,8 @@ public enum SQLType {
     STRING("VARCHAR"),
     INTEGER("INT"),
     DATE("DATE"),
-    DATETIME("DATETIME");
+    DATETIME("DATETIME"),
+    BOOLEAN("BOOLEAN");
 
     private String value = "";
 
