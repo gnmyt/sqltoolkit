@@ -32,18 +32,10 @@ This is a small project for quickly managing a MySQL database in Java. It makes 
    ```java
    MySQLConnection connection = new MySQLConnection(hostname, username, password, database).connect();
    ```
-   - Example of a constructor with setting the logging level
-   ```java
-   MySQLConnection connection = new MySQLConnection(hostname, username, password, database, LogLevelType.ALL).connect();
-   ```
    - Example of a constructor with optional login parameters
    ```java
    MySQLConnection connection = new MySQLConnection(hostname, username, password, database, LoginParam.AUTO_RECONNECT, LoginParam.NO_SSL).connect();
    ```
-   #### Logging Levels
-   - NONE - Sends nothing
-   - LOW - Sends Warnings & Errors
-   - ALL - Sends Infos, Warnings & Errors
    #### Login Parameters
    - DEFAULT *(useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC)*
    - NO_SSL *(useSSL=false)*

@@ -5,7 +5,6 @@ import de.gnmyt.SQLToolkit.manager.DataBaseSelection;
 import de.gnmyt.SQLToolkit.manager.InsertManager;
 import de.gnmyt.SQLToolkit.manager.ResultManager;
 import de.gnmyt.SQLToolkit.manager.UpdateManager;
-import de.gnmyt.SQLToolkit.types.LogLevelType;
 import de.gnmyt.SQLToolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,84 +29,21 @@ public class MySQLConnection {
     private Connection con;
 
     /**
-     * Update the Connection String
-     * @param loginParams New login parameters
-     * @return this class
-     */
-    public MySQLConnection updateConnectString(LoginParam... loginParams) {
-        this.connectString = getConnectionString(loginParams);
-        return this;
-    }
-
-    /**
-     * Set the Connection String
-     * @param tablePrefixVariable New table prefix variable
-     * @return this class
-     */
-    public MySQLConnection setTablePrefixVariable(String tablePrefixVariable) {
-        this.tablePrefixVariable = tablePrefixVariable;
-        return this;
-    }
-
-    /**
-     * Set the current table Prefix
-     * @param tablePrefix New table prefix
-     * @return this class
-     */
-    public MySQLConnection setTablePrefix(String tablePrefix) {
-        this.tablePrefix = tablePrefix;
-        return this;
-    }
-
-    /**
-     * Get the current table Prefix
-     * @return the prefix
-     */
-    public String getTablePrefix() {
-        return tablePrefix;
-    }
-
-    /**
-     * Get the current jdbc connection string for mysql
-     * @param loginParams login parameters
-     * @return the string
-     */
-    private String getConnectionString(LoginParam[] loginParams) {
-        boolean used = false;StringBuilder currentString = new StringBuilder();
-        for (LoginParam param : loginParams) {
-            String currentChar = (used) ? "&" : "?";used = true;
-            currentString.append(currentChar).append(param.getValue());
-        }
-        return currentString.toString();
-    }
-
-    /**
-     * Check if you are connected
-     * @return status of the connection
-     */
-    public boolean isConnected() {
-        return (con != null);
-    }
-
-    /**
-     * Basic constructor for the Connection
+     * Basic constructor for the connection
      * @param hostname MySQL server hostname
      * @param username MySQL server username
      * @param password MySQL server password
      * @param database MySQL server database
-     * @param logLevel Logging level
-     * @param loginParams Login parameters
      */
-    public MySQLConnection(String hostname, String username, String password, String database, LogLevelType logLevel, LoginParam... loginParams) {
+    public MySQLConnection(String hostname, String username, String password, String database) {
         this.hostname = hostname;
         this.username = username;
         this.password = password;
         this.database = database;
-        updateConnectString(loginParams);
     }
 
     /**
-     * Basic constructor for the Connection
+     * Advanced constructor for the connection
      * @param hostname MySQL server hostname
      * @param username MySQL server username
      * @param password MySQL server password
@@ -119,7 +55,7 @@ public class MySQLConnection {
         this.username = username;
         this.password = password;
         this.database = database;
-        updateConnectString(loginParams);
+        updateConnectionString(loginParams);
     }
 
     /**
@@ -267,5 +203,66 @@ public class MySQLConnection {
         } else LOG.warn("Not connected. Please connect first");
         return this;
     }
+
+    /**
+     * Update the Connection String
+     * @param loginParams New login parameters
+     * @return this class
+     */
+    public MySQLConnection updateConnectionString(LoginParam... loginParams) {
+        this.connectString = getConnectionString(loginParams);
+        return this;
+    }
+
+    /**
+     * Set the Connection String
+     * @param tablePrefixVariable New table prefix variable
+     * @return this class
+     */
+    public MySQLConnection setTablePrefixVariable(String tablePrefixVariable) {
+        this.tablePrefixVariable = tablePrefixVariable;
+        return this;
+    }
+
+    /**
+     * Set the current table Prefix
+     * @param tablePrefix New table prefix
+     * @return this class
+     */
+    public MySQLConnection setTablePrefix(String tablePrefix) {
+        this.tablePrefix = tablePrefix;
+        return this;
+    }
+
+    /**
+     * Get the current table Prefix
+     * @return the prefix
+     */
+    public String getTablePrefix() {
+        return tablePrefix;
+    }
+
+    /**
+     * Get the current jdbc connection string for mysql
+     * @param loginParams login parameters
+     * @return the string
+     */
+    private String getConnectionString(LoginParam[] loginParams) {
+        boolean used = false;StringBuilder currentString = new StringBuilder();
+        for (LoginParam param : loginParams) {
+            String currentChar = (used) ? "&" : "?";used = true;
+            currentString.append(currentChar).append(param.getValue());
+        }
+        return currentString.toString();
+    }
+
+    /**
+     * Check if you are connected
+     * @return status of the connection
+     */
+    public boolean isConnected() {
+        return (con != null);
+    }
+
 
 }
