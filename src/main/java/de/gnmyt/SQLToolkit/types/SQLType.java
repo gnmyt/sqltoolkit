@@ -2,18 +2,18 @@ package de.gnmyt.SQLToolkit.types;
 
 public enum SQLType {
 
-    STRING("VARCHAR"),
+    VARCHAR("VARCHAR"),
+    STRING("TEXT"),
     INTEGER("INT"),
     DATE("DATE"),
     DATETIME("DATETIME"),
-    BOOLEAN("BOOLEAN");
+    BOOLEAN("TINYINT");
 
-    private String value = "";
+    private String value;
 
     /**
-     * Basic constructor for the SQLType enum
-     *
-     * @param value MySQL data type
+     * Basic constructor of the {@link SQLType} enum
+     * @param value The value of the type
      */
     SQLType(String value) {
         this.value = value;
