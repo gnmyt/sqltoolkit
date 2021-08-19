@@ -18,15 +18,15 @@ import java.sql.ResultSet;
 public class MySQLConnection {
 
     public static final Logger LOG = LoggerFactory.getLogger("MySQL-Logger");
+    private final TableFactory tableFactory = new TableFactory(this);
 
     private final String hostname;
     private final String username;
     private final String password;
     private final String database;
-    private final TableFactory tableFactory = new TableFactory(this);
-    private String tablePrefix = "";
-    private String tablePrefixVariable = "";
+
     private String connectString = "";
+
     private Connection con;
 
     /**
@@ -69,7 +69,6 @@ public class MySQLConnection {
      * @return ResultSet
      */
     public ResultSet getResultSet(String query, Object... params) {
-        query = (tablePrefix.isEmpty()) ? query : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
         try {
             int start = 1;
             PreparedStatement ps = con.prepareStatement(query);
@@ -119,7 +118,6 @@ public class MySQLConnection {
      * @return this class
      */
     public MySQLConnection update(String query, Object... params) {
-        query = (tablePrefix.isEmpty()) ? query : query.replace((tablePrefixVariable.isEmpty()) ? "$tp" : tablePrefixVariable, tablePrefix);
         try {
             int start = 1;
             PreparedStatement ps = con.prepareStatement(query);
@@ -251,37 +249,6 @@ public class MySQLConnection {
      */
     public MySQLConnection updateConnectionString(LoginParam... loginParams) {
         this.connectString = getConnectionString(loginParams);
-        return this;
-    }
-
-    /**
-     * Set the Connection String
-     *
-     * @param tablePrefixVariable New table prefix variable
-     * @return this class
-     */
-    public MySQLConnection setTablePrefixVariable(String tablePrefixVariable) {
-        this.tablePrefixVariable = tablePrefixVariable;
-        return this;
-    }
-
-    /**
-     * Get the current table Prefix
-     *
-     * @return the prefix
-     */
-    public String getTablePrefix() {
-        return tablePrefix;
-    }
-
-    /**
-     * Set the current table Prefix
-     *
-     * @param tablePrefix New table prefix
-     * @return this class
-     */
-    public MySQLConnection setTablePrefix(String tablePrefix) {
-        this.tablePrefix = tablePrefix;
         return this;
     }
 
