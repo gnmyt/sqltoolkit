@@ -157,9 +157,9 @@ easier.
                     .execute();
             }
     
-            public void deleteUser() {
+            public void deleteSomething() {
                 delete()
-                    .where("column1", "test")
+                    .where("column3", "test")
                     .execute();
             }
        }
