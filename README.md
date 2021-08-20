@@ -144,6 +144,7 @@ easier.
  
             @Override
             protected void tableFields() {
+                custom("test").type(SQLType.STRING).length(255).add();
                 string("column1", 255, "default");
                 string("colum2", 100, "test2");
                 integer("colum3", 2, "");
