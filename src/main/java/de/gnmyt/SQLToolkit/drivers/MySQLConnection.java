@@ -99,12 +99,26 @@ public class MySQLConnection {
      * @param consumer The consumer
      * @param params   The optional parameters
      */
-    public void getResult(String query, SQLConsumer<ResultSet> consumer, Object... params) {
+    public void getResultSet(String query, SQLConsumer<ResultSet> consumer, Object... params) {
         try {
-            ResultSet resultSet = getResultSet(query, params);
-            consumer.accept(resultSet);
-            resultSet.close();
-        } catch (Exception ignored) {
+            consumer.accept(getResultSet(query, params));
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Run an action with a result from your server
+     *
+     * @param query    The search query
+     * @param consumer The consumer
+     * @param params   The optional parameters
+     */
+    public void getResult(String query, SQLConsumer<ResultManager> consumer, Object... params) {
+        try {
+            consumer.accept(getResult(query, params));
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
         }
     }
 
