@@ -2,11 +2,11 @@ package de.gnmyt.SQLToolkit.types;
 
 public class TableField {
 
-    private String name;
-    private String type;
-    private int length;
-    private boolean allowNull;
-    private String defaultValue;
+    private String name = "default";
+    private String type = SQLType.STRING.getValue();
+    private int length = 255;
+    private boolean allowNull = false;
+    private String defaultValue = "";
     private String[] extra;
 
     /**
