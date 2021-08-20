@@ -7,7 +7,7 @@ public class TableField {
     private int length = 255;
     private boolean allowNull = false;
     private String defaultValue = "";
-    private String[] extra;
+    private String[] extra = new String[0];
 
     /**
      * Basic constructor of the {@link TableField}
