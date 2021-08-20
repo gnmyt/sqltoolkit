@@ -1,10 +1,10 @@
-package de.gnmyt.SQLToolkit.drivers;
+package de.gnmyt.sqltoolkit.drivers;
 
-import de.gnmyt.SQLToolkit.api.SQLConsumer;
-import de.gnmyt.SQLToolkit.factory.TableFactory;
-import de.gnmyt.SQLToolkit.generator.TableGenerator;
-import de.gnmyt.SQLToolkit.manager.*;
-import de.gnmyt.SQLToolkit.types.LoginParam;
+import de.gnmyt.sqltoolkit.api.SQLConsumer;
+import de.gnmyt.sqltoolkit.factory.TableFactory;
+import de.gnmyt.sqltoolkit.generator.TableGenerator;
+import de.gnmyt.sqltoolkit.manager.*;
+import de.gnmyt.sqltoolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

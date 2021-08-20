@@ -1,13 +1,14 @@
-package de.gnmyt.SQLToolkit.manager;
+package de.gnmyt.sqltoolkit.manager;
 
-import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
 import org.slf4j.Logger;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class DeletionManager {
+public class SelectionManager {
 
     private final Logger LOG = MySQLConnection.LOG;
 
@@ -15,15 +16,16 @@ public class DeletionManager {
     private final HashMap<String, Object> whereList;
     private final ArrayList<Object> databaseParameters;
     private final ArrayList<String> optionalQuery;
+    private int limit;
     private String tableName;
 
     /**
-     * Advanced constructor for the {@link DeletionManager}
+     * Basic constructor for selection
      *
-     * @param connection The current connection
+     * @param connection The current Connection
      * @param tableName  The table name
      */
-    public DeletionManager(MySQLConnection connection, String tableName) {
+    public SelectionManager(MySQLConnection connection, String tableName) {
         this.whereList = new HashMap<>();
         this.databaseParameters = new ArrayList<>();
         this.optionalQuery = new ArrayList<>();
@@ -32,11 +34,11 @@ public class DeletionManager {
     }
 
     /**
-     * Basic constructor for the {@link DeletionManager}
+     * Basic constructor for selection
      *
-     * @param connection The current connection
+     * @param connection The current Connection
      */
-    public DeletionManager(MySQLConnection connection) {
+    public SelectionManager(MySQLConnection connection) {
         this.whereList = new HashMap<>();
         this.databaseParameters = new ArrayList<>();
         this.optionalQuery = new ArrayList<>();
@@ -61,7 +63,7 @@ public class DeletionManager {
      * @param tableName The table name
      * @return this class
      */
-    public DeletionManager from(String tableName) {
+    public SelectionManager from(String tableName) {
         this.tableName = tableName;
         return this;
     }
@@ -73,16 +75,38 @@ public class DeletionManager {
      * @param value  Table value name
      * @return this class
      */
-    public DeletionManager where(String column, Object value) {
+    public SelectionManager where(String column, Object value) {
         whereList.put(column, value);
         return this;
     }
 
     /**
-     * Executes the 'delete'-statement
+     * Sets the limit of the rows
+     *
+     * @param limit The new limit
+     * @return this class
      */
-    public void execute() {
-        connection.update(prepareStatement(), getTempParams().toArray());
+    public SelectionManager limit(int limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    /**
+     * Get the ResultManager
+     *
+     * @return ResultManager
+     */
+    public ResultManager getResult() {
+        return connection.getResult(prepareStatement(), getTempParams().toArray());
+    }
+
+    /**
+     * Get the ResultSet
+     *
+     * @return ResultSet
+     */
+    public ResultSet getResultSet() {
+        return connection.getResultSet(prepareStatement(), getTempParams().toArray());
     }
 
     /**
@@ -92,7 +116,7 @@ public class DeletionManager {
      * @param params Optional parameters for the Query
      * @return this class
      */
-    public DeletionManager add(String query, Object... params) {
+    public SelectionManager add(String query, Object... params) {
         optionalQuery.add(query);
         this.databaseParameters.addAll(Arrays.asList(params));
         return this;
@@ -104,15 +128,17 @@ public class DeletionManager {
      * @return the current statement query
      */
     private String prepareStatement() {
-        StringBuilder query = new StringBuilder().append("DELETE FROM ").append(tableName);
-
-        if (!whereList.isEmpty()) query.append(" WHERE ");
+        StringBuilder query = new StringBuilder().append("SELECT * FROM ").append(tableName).append(" ");
 
         for (int i = 0; i < whereList.size(); i++) {
-            if (i > 0) query.append(" AND ");
-            query.append(whereList.keySet().toArray()[i]).append(" = ?");
+            if (i > 0) query.append("WHERE ");
+            else query.append("AND ");
+
+            query.append(whereList.keySet().toArray()[i]).append(" = ? ");
         }
 
+        if (limit != 0) query.append("LIMIT ").append(limit);
+        optionalQuery.forEach(v -> query.append(" ").append(v).append(" "));
         return query.toString();
     }
 

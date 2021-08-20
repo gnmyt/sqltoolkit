@@ -1,8 +1,8 @@
-package de.gnmyt.SQLToolkit.manager;
+package de.gnmyt.sqltoolkit.manager;
 
-import de.gnmyt.SQLToolkit.storage.SQLTable;
-import de.gnmyt.SQLToolkit.types.SQLType;
-import de.gnmyt.SQLToolkit.types.TableField;
+import de.gnmyt.sqltoolkit.storage.SQLTable;
+import de.gnmyt.sqltoolkit.types.SQLType;
+import de.gnmyt.sqltoolkit.types.TableField;
 
 public class CustomTableFieldManager {
 

@@ -1,6 +1,6 @@
-package de.gnmyt.SQLToolkit.manager;
+package de.gnmyt.sqltoolkit.manager;
 
-import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
 import org.slf4j.Logger;
 
 import java.util.ArrayList;

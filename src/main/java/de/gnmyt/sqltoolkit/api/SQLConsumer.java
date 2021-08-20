@@ -1,4 +1,4 @@
-package de.gnmyt.SQLToolkit.api;
+package de.gnmyt.sqltoolkit.api;
 
 import java.sql.SQLException;
 

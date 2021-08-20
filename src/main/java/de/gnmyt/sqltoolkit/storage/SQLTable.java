@@ -1,9 +1,9 @@
-package de.gnmyt.SQLToolkit.storage;
+package de.gnmyt.sqltoolkit.storage;
 
-import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.manager.*;
-import de.gnmyt.SQLToolkit.types.SQLType;
-import de.gnmyt.SQLToolkit.types.TableField;
+import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.manager.*;
+import de.gnmyt.sqltoolkit.types.SQLType;
+import de.gnmyt.sqltoolkit.types.TableField;
 
 import java.util.ArrayList;
 

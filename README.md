@@ -128,8 +128,8 @@ easier.
 5. The use of the table factory
     1. Create a new table class
        ```java
-       import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-       import de.gnmyt.SQLToolkit.storage.SQLTable;
+       import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+       import de.gnmyt.sqltoolkit.storage.SQLTable;
  
           public class ExampleTable extends SQLTable {
     
@@ -176,8 +176,8 @@ easier.
 6. The use of the table factory with storage mediums
     1. Create a new storage medium class
        ```java
-       import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-       import de.gnmyt.SQLToolkit.storage.SQLStorageMedium;
+       import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+       import de.gnmyt.sqltoolkit.storage.SQLStorageMedium;
  
        public class ExampleStorage extends SQLStorageMedium {
         

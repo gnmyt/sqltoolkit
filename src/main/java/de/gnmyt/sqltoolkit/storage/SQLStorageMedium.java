@@ -1,6 +1,6 @@
-package de.gnmyt.SQLToolkit.storage;
+package de.gnmyt.sqltoolkit.storage;
 
-import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;

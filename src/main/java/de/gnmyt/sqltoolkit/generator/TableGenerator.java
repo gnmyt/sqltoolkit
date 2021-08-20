@@ -1,8 +1,8 @@
-package de.gnmyt.SQLToolkit.generator;
+package de.gnmyt.sqltoolkit.generator;
 
-import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.types.SQLType;
-import de.gnmyt.SQLToolkit.types.TableField;
+import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.types.SQLType;
+import de.gnmyt.sqltoolkit.types.TableField;
 
 import java.util.ArrayList;
 

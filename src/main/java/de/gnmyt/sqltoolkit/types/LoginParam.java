@@ -1,4 +1,4 @@
-package de.gnmyt.SQLToolkit.types;
+package de.gnmyt.sqltoolkit.types;
 
 public enum LoginParam {
 
