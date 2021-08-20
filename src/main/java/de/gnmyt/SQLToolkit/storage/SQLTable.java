@@ -1,10 +1,7 @@
 package de.gnmyt.SQLToolkit.storage;
 
 import de.gnmyt.SQLToolkit.drivers.MySQLConnection;
-import de.gnmyt.SQLToolkit.manager.DeletionManager;
-import de.gnmyt.SQLToolkit.manager.InsertManager;
-import de.gnmyt.SQLToolkit.manager.SelectionManager;
-import de.gnmyt.SQLToolkit.manager.UpdateManager;
+import de.gnmyt.SQLToolkit.manager.*;
 import de.gnmyt.SQLToolkit.types.SQLType;
 import de.gnmyt.SQLToolkit.types.TableField;
 
@@ -103,6 +100,34 @@ public abstract class SQLTable {
     }
 
     /**
+     * Adds a table field to the table
+     *
+     * @param tableField The table field you want to add
+     */
+    public void custom(TableField tableField) {
+        tableFields.add(tableField);
+    }
+
+    /**
+     * Adds a custom table field to the table
+     *
+     * @param name The name of the column
+     * @return the manager of the table field
+     */
+    protected CustomTableFieldManager custom(String name) {
+        return new CustomTableFieldManager(this).name(name);
+    }
+
+    /**
+     * Adds a custom table field to the table
+     *
+     * @return the manager of the table field
+     */
+    protected CustomTableFieldManager custom() {
+        return new CustomTableFieldManager(this);
+    }
+
+    /**
      * Gets the database selection from the current the table
      *
      * @return the database selection
@@ -136,15 +161,6 @@ public abstract class SQLTable {
      */
     public DeletionManager delete() {
         return connection.deleteFrom(tableName());
-    }
-
-    /**
-     * Adds a table field to the table
-     *
-     * @param tableField The table field you want to add
-     */
-    protected void custom(TableField tableField) {
-        tableFields.add(tableField);
     }
 
     /**
