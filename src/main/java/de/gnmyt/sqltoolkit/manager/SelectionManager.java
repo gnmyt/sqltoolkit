@@ -131,7 +131,7 @@ public class SelectionManager {
         StringBuilder query = new StringBuilder().append("SELECT * FROM ").append(tableName).append(" ");
 
         for (int i = 0; i < whereList.size(); i++) {
-            if (i > 0) query.append("WHERE ");
+            if (i == 0) query.append("WHERE ");
             else query.append("AND ");
 
             query.append(whereList.keySet().toArray()[i]).append(" = ? ");
