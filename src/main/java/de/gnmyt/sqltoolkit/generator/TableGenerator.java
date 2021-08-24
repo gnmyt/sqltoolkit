@@ -88,10 +88,8 @@ public class TableGenerator {
 
     /**
      * Creates the table you wanted
-     *
-     * @return this class
      */
-    public TableGenerator create() {
+    public void create() {
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" ( ");
 
@@ -105,7 +103,6 @@ public class TableGenerator {
 
         sb.append(" ) ENGINE = InnoDB;");
         connection.update(sb.toString());
-        return this;
     }
 
 }
