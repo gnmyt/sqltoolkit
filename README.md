@@ -125,88 +125,7 @@ easier.
              .where("column", "value")
              .execute();
        ```
-5. The use of the table factory
-    1. Create a new table class
-       ```java
-       import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
-       import de.gnmyt.sqltoolkit.storage.SQLTable;
- 
-          public class ExampleTable extends SQLTable {
-    
-            public ExampleTable(MySQLConnection connection) {
-                super(connection);
-            }
- 
-            @Override
-            protected String tableName() {
-                return "example";
-            }
- 
-            @Override
-            protected void tableFields() {
-                custom("test").type(SQLType.STRING).length(255).add();
-                string("column1", 255, "default");
-                string("colum2", 100, "test2");
-                integer("colum3", 2, "");
-            }
-    
-            public void addSomething() {
-                insert()
-                    .value("column1", "test")
-                    .value("colum3", 52)
-                    .execute();
-            }
-    
-            public void deleteSomething() {
-                delete()
-                    .where("column3", "test")
-                    .execute();
-            }
-       }
-       ```
-    2. Register your table
-       ```java
-       connection.getTableFactory().register(new ExampleTable(connection));
-       ```
-    3. Now you can access your table from everywhere
-       ```java
-       ((ExampleTable) connection.getTableFactory().getTable(ExampleTable.class))
-                    .addSomething();
-       ```
-6. The use of the table factory with storage mediums
-    1. Create a new storage medium class
-       ```java
-       import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
-       import de.gnmyt.sqltoolkit.storage.SQLStorageMedium;
- 
-       public class ExampleStorage extends SQLStorageMedium {
-        
-            public ExampleStorage(MySQLConnection connection) {
-                super(connection);
-            }
- 
-            @Override
-            protected String tableName() {
-                return "example_storage";
-            }
-       }
-       ```
-    2. Register your storage
-       ```java
-       connection.getTableFactory().register(new ExampleStorage(connection));
-       ```
-    3. Now you can access your storage medium from everywhere. Try something like that:
-       ```java
-       SQLStorageMedium storage = connection.getTableFactory().getStorage(ExampleStorage.class);
-         
-       storage.insert("username", "test");
-       String username = storage.get("username");
-       storage.delete("username");
-         
-       storage.insertOrUpdate("version", "1.0.0");
-         
-       storage.getEntries();
-       ```
+You can find other examples in the [examples directory](src/examples/java).
 
 ## License
 
@@ -234,4 +153,4 @@ Currently, there are not many features yet, so feel free to write me some sugges
 
 [license-shield]: https://img.shields.io/github/license/gnmyt/sqltoolkit.svg?style=for-the-badge
 
-[license-url]: https://github.com/gnmyt/sqltoolkit/blob/master/LICENSE.txt
+[license-url]: https://github.com/gnmyt/sqltoolkit/blob/master/LICENSE
