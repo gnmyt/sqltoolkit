@@ -23,7 +23,7 @@ public class StorageMediumExample {
 
         // If you want to you can list all entries from the current storage
         storage.getEntries().forEach(entry ->
-                System.out.println( entry.get("keyName") + " -> " + entry.get("value") ));
+                System.out.println(entry.get("keyName") + " -> " + entry.get("value")));
     }
 
 
@@ -42,6 +42,7 @@ public class StorageMediumExample {
 
         /**
          * Updates the language of the configuration storage
+         *
          * @param newLanguage The new language
          */
         public void updateLanguage(String newLanguage) {
@@ -50,6 +51,7 @@ public class StorageMediumExample {
 
         /**
          * Gets the current language of the configuration storage
+         *
          * @return The current language of the configuration storage
          */
         public String getLanguage() {
@@ -58,6 +60,7 @@ public class StorageMediumExample {
 
         /**
          * Updates the version of the configuration storage
+         *
          * @param newVersion The new version
          */
         public void updateVersion(String newVersion) {
@@ -66,6 +69,7 @@ public class StorageMediumExample {
 
         /**
          * Gets the current version of the configuration storage
+         *
          * @return The current version of the configuration storage
          */
         public String getVersion() {
