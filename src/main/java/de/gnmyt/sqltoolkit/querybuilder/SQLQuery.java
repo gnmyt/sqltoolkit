@@ -39,8 +39,9 @@ public class SQLQuery {
      *
      * @param statement The new query statement
      */
-    public void setStatement(String statement) {
+    public SQLQuery setStatement(String statement) {
         this.statement = statement;
+        return this;
     }
 
     /**
@@ -57,8 +58,9 @@ public class SQLQuery {
      *
      * @param parameters The new query parameters
      */
-    public void setParameters(Object[] parameters) {
+    public SQLQuery setParameters(Object[] parameters) {
         this.parameters = parameters;
+        return this;
     }
 
     @Override
