@@ -1,9 +1,11 @@
 package de.gnmyt.sqltoolkit.manager;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.queries.UpdateQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UpdateManager {
@@ -34,7 +36,7 @@ public class UpdateManager {
      */
     public UpdateManager(MySQLConnection connection, String tableName) {
         this.connection = connection;
-        toTable(tableName);
+        this.tableName = tableName;
         this.whereList = new HashMap<>();
         this.setList = new HashMap<>();
     }
@@ -48,18 +50,6 @@ public class UpdateManager {
     public UpdateManager toTable(String tableName) {
         this.tableName = tableName;
         return this;
-    }
-
-    /**
-     * Get the parameters for the SQL statement
-     *
-     * @return the parameters
-     */
-    private ArrayList<Object> getTempParams() {
-        ArrayList<Object> tempParams = new ArrayList<>();
-        setList.forEach((str, obj) -> tempParams.add(obj));
-        whereList.forEach((str, obj) -> tempParams.add(obj));
-        return tempParams;
     }
 
     /**
@@ -90,31 +80,20 @@ public class UpdateManager {
      * Update the entries with your current conditions
      */
     public void execute() {
-        connection.update(prepareUpdateStatement(), getTempParams().toArray());
+        connection.update(build());
     }
 
     /**
-     * Get the Query of the 'update'-Statement
+     * Builds the current statement
      *
-     * @return the Statement
+     * @return the current statement
      */
-    private String prepareUpdateStatement() {
-        StringBuilder query = new StringBuilder().append("UPDATE ").append(tableName);
-        if (!setList.isEmpty()) query.append(" SET ");
-
-        for (int i = 0; i < setList.size(); i++) {
-            if (i > 0) query.append(", ");
-            query.append(setList.keySet().toArray()[i]);
-        }
-
-        if (!whereList.isEmpty()) query.append(" WHERE ");
-
-        for (int i = 0; i < whereList.size(); i++) {
-            if (i > 0) query.append(" AND ");
-            query.append(whereList.keySet().toArray()[i]).append(" = ?");
-        }
-
-        return query.toString();
+    public SQLQuery build() {
+        return connection.createQuery(UpdateQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName)
+                .addParameter(QueryParameter.WHERE_LIST, whereList)
+                .addParameter(QueryParameter.SET_LIST, setList)
+                .build();
     }
 
 }
