@@ -1,10 +1,11 @@
 package de.gnmyt.sqltoolkit.manager;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.queries.DeletionQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class DeletionManager {
@@ -12,9 +13,8 @@ public class DeletionManager {
     private final Logger LOG = MySQLConnection.LOG;
 
     private final MySQLConnection connection;
-    private final HashMap<String, Object> whereList;
-    private final ArrayList<Object> databaseParameters;
-    private final ArrayList<String> optionalQuery;
+
+    private final HashMap<String, Object> whereList = new HashMap<>();
     private String tableName;
 
     /**
@@ -24,11 +24,8 @@ public class DeletionManager {
      * @param tableName  The table name
      */
     public DeletionManager(MySQLConnection connection, String tableName) {
-        this.whereList = new HashMap<>();
-        this.databaseParameters = new ArrayList<>();
-        this.optionalQuery = new ArrayList<>();
         this.connection = connection;
-        from(tableName);
+        this.tableName = tableName;
     }
 
     /**
@@ -37,22 +34,7 @@ public class DeletionManager {
      * @param connection The current connection
      */
     public DeletionManager(MySQLConnection connection) {
-        this.whereList = new HashMap<>();
-        this.databaseParameters = new ArrayList<>();
-        this.optionalQuery = new ArrayList<>();
         this.connection = connection;
-    }
-
-    /**
-     * Get the temp-generated parameters
-     *
-     * @return ArrayList of parameters
-     */
-    private ArrayList<Object> getTempParams() {
-        ArrayList<Object> tempParameters = new ArrayList<>();
-        whereList.forEach((k, v) -> tempParameters.add(v));
-        tempParameters.addAll(databaseParameters);
-        return tempParameters;
     }
 
     /**
@@ -82,38 +64,18 @@ public class DeletionManager {
      * Executes the 'delete'-statement
      */
     public void execute() {
-        connection.update(prepareStatement(), getTempParams().toArray());
+        connection.update(build());
     }
 
     /**
-     * Adding another factors
+     * Builds the current statement
      *
-     * @param query  MySQL Query
-     * @param params Optional parameters for the Query
-     * @return this class
+     * @return the current statement
      */
-    public DeletionManager add(String query, Object... params) {
-        optionalQuery.add(query);
-        this.databaseParameters.addAll(Arrays.asList(params));
-        return this;
-    }
-
-    /**
-     * Get the current statement query
-     *
-     * @return the current statement query
-     */
-    private String prepareStatement() {
-        StringBuilder query = new StringBuilder().append("DELETE FROM ").append(tableName);
-
-        if (!whereList.isEmpty()) query.append(" WHERE ");
-
-        for (int i = 0; i < whereList.size(); i++) {
-            if (i > 0) query.append(" AND ");
-            query.append(whereList.keySet().toArray()[i]).append(" = ?");
-        }
-
-        return query.toString();
+    private SQLQuery build() {
+        return connection.createQuery(DeletionQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName)
+                .addParameter(QueryParameter.WHERE_LIST, whereList).build();
     }
 
 }
