@@ -30,7 +30,7 @@ public class UpdateQuery extends AbstractQuery {
 
         for (int i = 0; i < setList.size(); i++) {
             if (i > 0) builder.appendDefault(",");
-            builder.append(setList.keySet().toArray()[i].toString()).append("=").append("?");
+            builder.append("`" + setList.keySet().toArray()[i] + "`").append("=").append("?");
         }
 
         return builder.build();
@@ -48,7 +48,7 @@ public class UpdateQuery extends AbstractQuery {
 
         for (int i = 0; i < whereList.size(); i++) {
             if (i > 0) builder.append("AND");
-            builder.append(whereList.keySet().toArray()[i].toString()).append("=").append("?");
+            builder.append("`" + whereList.keySet().toArray()[i] + "`").append("=").append("?");
         }
 
         return builder.build();
@@ -71,7 +71,7 @@ public class UpdateQuery extends AbstractQuery {
 
     @Override
     public SQLQuery build() {
-        StatementBuilder builder = new StatementBuilder("UPDATE").append((String) getParameter(TABLE_NAME));
+        StatementBuilder builder = new StatementBuilder("UPDATE").append("`" + getParameter(TABLE_NAME) + "`");
 
         if (!((HashMap<String, Object>) getParameter(SET_LIST)).isEmpty()) builder.append(buildSetList());
 

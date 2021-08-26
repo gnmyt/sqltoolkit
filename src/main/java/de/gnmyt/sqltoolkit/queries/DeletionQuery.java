@@ -52,7 +52,7 @@ public class DeletionQuery extends AbstractQuery {
     @Override
     public SQLQuery build() {
 
-        StatementBuilder builder = new StatementBuilder("DELETE").append("FROM").append((String) getParameter(TABLE_NAME));
+        StatementBuilder builder = new StatementBuilder("DELETE").append("FROM").append("`" + getParameter(TABLE_NAME) + "`");
 
         builder.append(buildWhereList());
 

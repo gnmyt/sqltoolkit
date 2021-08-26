@@ -71,7 +71,7 @@ public class InsertQuery extends AbstractQuery {
 
     @Override
     public SQLQuery build() {
-        StatementBuilder builder = new StatementBuilder("INSERT INTO").append((String) getParameter(TABLE_NAME));
+        StatementBuilder builder = new StatementBuilder("INSERT INTO").append("`" + getParameter(TABLE_NAME) + "`");
 
         builder.append(buildRowList());
 
