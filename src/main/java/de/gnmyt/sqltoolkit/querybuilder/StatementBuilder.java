@@ -6,6 +6,7 @@ public class StatementBuilder {
 
     /**
      * Basic constructor of the {@link StatementBuilder} with a prefilled text
+     *
      * @param text The text you want to add
      */
     public StatementBuilder(String text) {
@@ -21,6 +22,7 @@ public class StatementBuilder {
 
     /**
      * Adds a text to the query with spaces
+     *
      * @param text The text you want to add
      * @return this class
      */
@@ -33,7 +35,22 @@ public class StatementBuilder {
     }
 
     /**
+     * Adds a text to the query without spaces
+     *
+     * @param text The text you want to add
+     * @return this class
+     */
+    public StatementBuilder appendDefault(String text) {
+        if (text.isEmpty()) return this;
+
+        query.append(text);
+
+        return this;
+    }
+
+    /**
      * Builds the query string
+     *
      * @return the built string
      */
     public String build() {
