@@ -1,6 +1,9 @@
 package de.gnmyt.sqltoolkit.manager;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.queries.InsertQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 
 import java.util.HashMap;
 
@@ -37,7 +40,7 @@ public class InsertManager {
      *
      * @param tableName The name of the table
      */
-    public void from(String tableName) {
+    public void to(String tableName) {
         this.tableName = tableName;
     }
 
@@ -54,36 +57,17 @@ public class InsertManager {
     }
 
     /**
-     * Prepares the SQL Query
-     *
-     * @return the SQL Query
-     */
-    public String prepareStatement() {
-        StringBuilder query = new StringBuilder().append("INSERT INTO ").append(tableName).append(" (");
-
-        for (int i = 0; i < values.size(); i++) {
-            if (i > 0) query.append(", ");
-            query.append("`").append(values.keySet().toArray()[i]).append("`");
-        }
-
-        query.append(")").append(values.size() > 0 ? "VALUES (" : "");
-
-        for (int i = 0; i < values.size(); i++) {
-            if (i > 0) query.append(", ");
-            query.append("?");
-        }
-
-        if (values.size() > 0) query.append(")");
-
-        return query.toString();
-    }
-
-
-    /**
      * Executes the current SQL query
      */
     public void execute() {
-        connection.update(prepareStatement(), values.values().toArray());
+        connection.update(build());
+    }
+
+    private SQLQuery build() {
+        return connection.createQuery(InsertQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName)
+                .addParameter(QueryParameter.VALUE_LIST, values)
+                .build();
     }
 
 }
