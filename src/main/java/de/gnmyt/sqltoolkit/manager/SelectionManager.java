@@ -1,6 +1,10 @@
 package de.gnmyt.sqltoolkit.manager;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.queries.SelectionQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryBuilder;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import org.slf4j.Logger;
 
 import java.sql.ResultSet;
@@ -11,56 +15,43 @@ import java.util.HashMap;
 public class SelectionManager {
 
     private final Logger LOG = MySQLConnection.LOG;
-
     private final MySQLConnection connection;
-    private final HashMap<String, Object> whereList;
-    private final ArrayList<Object> databaseParameters;
-    private final ArrayList<String> optionalQuery;
-    private int limit;
-    private String tableName;
+
+    private final HashMap<String, Object> WHERE_LIST = new HashMap<>();
+    private final ArrayList<String> SELECTION_LIST = new ArrayList<>();
+
+    private String limit = "";
+    private String tableName = "default";
 
     /**
-     * Basic constructor for selection
+     * Advanced constructor of the {@link SelectionManager} with a prefilled table name
      *
-     * @param connection The current Connection
+     * @param connection The current connection
      * @param tableName  The table name
      */
     public SelectionManager(MySQLConnection connection, String tableName) {
-        this.whereList = new HashMap<>();
-        this.databaseParameters = new ArrayList<>();
-        this.optionalQuery = new ArrayList<>();
         this.connection = connection;
-        from(tableName);
+        this.tableName = tableName;
     }
 
     /**
-     * Basic constructor for selection
+     * Basic constructor of the {@link SelectionManager}
      *
-     * @param connection The current Connection
+     * @param connection The current connection
      */
     public SelectionManager(MySQLConnection connection) {
-        this.whereList = new HashMap<>();
-        this.databaseParameters = new ArrayList<>();
-        this.optionalQuery = new ArrayList<>();
         this.connection = connection;
     }
 
-    /**
-     * Get the temp-generated parameters
-     *
-     * @return ArrayList of parameters
-     */
-    private ArrayList<Object> getTempParams() {
-        ArrayList<Object> tempParameters = new ArrayList<>();
-        whereList.forEach((k, v) -> tempParameters.add(v));
-        tempParameters.addAll(databaseParameters);
-        return tempParameters;
+    public SelectionManager select(String... selection) {
+        SELECTION_LIST.addAll(Arrays.asList(selection));
+        return this;
     }
 
     /**
-     * Sets the table name
+     * Sets the table name of the selection
      *
-     * @param tableName The table name
+     * @param tableName The new table name
      * @return this class
      */
     public SelectionManager from(String tableName) {
@@ -76,7 +67,7 @@ public class SelectionManager {
      * @return this class
      */
     public SelectionManager where(String column, Object value) {
-        whereList.put(column, value);
+        WHERE_LIST.put(column, value);
         return this;
     }
 
@@ -87,7 +78,19 @@ public class SelectionManager {
      * @return this class
      */
     public SelectionManager limit(int limit) {
-        this.limit = limit;
+        this.limit = String.valueOf(limit);
+        return this;
+    }
+
+    /**
+     * Sets the limit of the rows
+     *
+     * @param startRow The first row that should be counted
+     * @param limit    The new limit
+     * @return this class
+     */
+    public SelectionManager limit(int startRow, int limit) {
+        this.limit = startRow + "," + limit;
         return this;
     }
 
@@ -97,7 +100,7 @@ public class SelectionManager {
      * @return ResultManager
      */
     public ResultManager getResult() {
-        return connection.getResult(prepareStatement(), getTempParams().toArray());
+        return connection.getResult(build());
     }
 
     /**
@@ -106,40 +109,23 @@ public class SelectionManager {
      * @return ResultSet
      */
     public ResultSet getResultSet() {
-        return connection.getResultSet(prepareStatement(), getTempParams().toArray());
+        return connection.getResultSet(build());
     }
 
     /**
-     * Adding another factors
+     * Builds the query
      *
-     * @param query  MySQL Query
-     * @param params Optional parameters for the Query
-     * @return this class
+     * @return the built query
      */
-    public SelectionManager add(String query, Object... params) {
-        optionalQuery.add(query);
-        this.databaseParameters.addAll(Arrays.asList(params));
-        return this;
-    }
+    private SQLQuery build() {
+        QueryBuilder query = connection.createQuery(SelectionQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName)
+                .addParameter(QueryParameter.LIMIT, limit)
+                .addParameter(QueryParameter.WHERE_LIST, WHERE_LIST);
 
-    /**
-     * Get the current statement query
-     *
-     * @return the current statement query
-     */
-    private String prepareStatement() {
-        StringBuilder query = new StringBuilder().append("SELECT * FROM ").append(tableName).append(" ");
+        if (!SELECTION_LIST.isEmpty()) query.addParameter(QueryParameter.SELECT_LIST, SELECTION_LIST);
 
-        for (int i = 0; i < whereList.size(); i++) {
-            if (i == 0) query.append("WHERE ");
-            else query.append("AND ");
-
-            query.append(whereList.keySet().toArray()[i]).append(" = ? ");
-        }
-
-        if (limit != 0) query.append("LIMIT ").append(limit);
-        optionalQuery.forEach(v -> query.append(" ").append(v).append(" "));
-        return query.toString();
+        return query.build();
     }
 
 }
