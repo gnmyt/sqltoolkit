@@ -7,6 +7,11 @@ public abstract class AbstractQuery {
     private final HashMap<QueryParameter, Object> PARAMETERS = new HashMap<>();
 
     /**
+     * Here the query adds its default values
+     */
+    public abstract void defaults();
+
+    /**
      * The building logic of the sql query
      *
      * @return the sql query
