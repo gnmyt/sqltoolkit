@@ -28,7 +28,7 @@ public class InsertQuery extends AbstractQuery {
         HashMap<String, Object> valueList = (HashMap<String, Object>) getParameter(VALUE_LIST);
 
         for (int i = 0; i < valueList.size(); i++) {
-            if (i > 0) rowString.append(",");
+            if (i > 0) rowString.appendDefault(",");
             rowString.append("`").appendDefault(valueList.keySet().toArray()[i].toString()).appendDefault("`");
         }
 
@@ -48,7 +48,7 @@ public class InsertQuery extends AbstractQuery {
         valueString.append(valueList.size() > 0 ? "VALUES (" : "");
 
         for (int i = 0; i < valueList.size(); i++) {
-            if (i > 0) valueString.append(",");
+            if (i > 0) valueString.appendDefault(",");
             valueString.append("?");
         }
 
