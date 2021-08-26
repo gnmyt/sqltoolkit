@@ -206,6 +206,15 @@ public class MySQLConnection {
     }
 
     /**
+     * Update something on your server by query
+     * @param query The query you want to execute
+     * @return this class
+     */
+    public MySQLConnection update(SQLQuery query) {
+        return update(query.getStatement(), query.getParameters());
+    }
+
+    /**
      * Gets the {@link UpdateManager} for easier updating
      *
      * @return the {@link UpdateManager}
