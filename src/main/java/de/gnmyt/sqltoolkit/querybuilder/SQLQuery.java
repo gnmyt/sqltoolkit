@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class SQLQuery {
 
     private String statement = "";
-    private String[] parameters = new String[0];
+    private Object[] parameters = new Object[0];
 
     /**
      * Advanced constructor of the {@link SQLQuery} with prefilled values
@@ -13,7 +13,7 @@ public class SQLQuery {
      * @param statement  The statement of the query
      * @param parameters The query parameters
      */
-    public SQLQuery(String statement, String[] parameters) {
+    public SQLQuery(String statement, Object[] parameters) {
         this.statement = statement;
         this.parameters = parameters;
     }
@@ -39,7 +39,7 @@ public class SQLQuery {
      *
      * @param parameters The new query parameters
      */
-    public void setParameters(String[] parameters) {
+    public void setParameters(Object[] parameters) {
         this.parameters = parameters;
     }
 
@@ -57,7 +57,7 @@ public class SQLQuery {
      *
      * @return the current query parameters
      */
-    public String[] getParameters() {
+    public Object[] getParameters() {
         return parameters;
     }
 
