@@ -26,6 +26,11 @@ public enum QueryParameter {
     SET_LIST,
 
     /**
+     * The selection list of the query provided as a {@link java.util.ArrayList}
+     */
+    SELECT_LIST,
+
+    /**
      * The row limit of a query provided as a {@link String}
      */
     LIMIT
