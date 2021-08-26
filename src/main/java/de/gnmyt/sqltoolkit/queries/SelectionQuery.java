@@ -52,7 +52,7 @@ public class SelectionQuery extends AbstractQuery {
             if (i == 0) whereString.append("WHERE");
             else whereString.append("AND");
 
-            whereString.append("`"+whereList.keySet().toArray()[i]+"`").append("=").append("?");
+            whereString.append("`" + whereList.keySet().toArray()[i] + "`").append("=").append("?");
         }
 
         return whereString.toString();
@@ -60,6 +60,7 @@ public class SelectionQuery extends AbstractQuery {
 
     /**
      * Gets the parameters
+     *
      * @return the parameters
      */
     public Object[] getParameters() {
