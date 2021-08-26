@@ -63,6 +63,11 @@ public class InsertManager {
         connection.update(build());
     }
 
+    /**
+     * Builds the current statement
+     *
+     * @return the current statement
+     */
     private SQLQuery build() {
         return connection.createQuery(InsertQuery.class)
                 .addParameter(QueryParameter.TABLE_NAME, tableName)
