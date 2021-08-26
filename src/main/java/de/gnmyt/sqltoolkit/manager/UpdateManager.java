@@ -88,7 +88,7 @@ public class UpdateManager {
      *
      * @return the current statement
      */
-    public SQLQuery build() {
+    private SQLQuery build() {
         return connection.createQuery(UpdateQuery.class)
                 .addParameter(QueryParameter.TABLE_NAME, tableName)
                 .addParameter(QueryParameter.WHERE_LIST, whereList)
