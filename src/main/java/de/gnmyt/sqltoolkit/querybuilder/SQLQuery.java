@@ -26,24 +26,6 @@ public class SQLQuery {
     }
 
     /**
-     * Sets the new statement of the query
-     *
-     * @param statement The new query statement
-     */
-    public void setStatement(String statement) {
-        this.statement = statement;
-    }
-
-    /**
-     * Sets the new parameters of the query
-     *
-     * @param parameters The new query parameters
-     */
-    public void setParameters(Object[] parameters) {
-        this.parameters = parameters;
-    }
-
-    /**
      * Gets the current statement of the query
      *
      * @return the current statement
@@ -53,12 +35,30 @@ public class SQLQuery {
     }
 
     /**
+     * Sets the new statement of the query
+     *
+     * @param statement The new query statement
+     */
+    public void setStatement(String statement) {
+        this.statement = statement;
+    }
+
+    /**
      * Gets the current query parameters
      *
      * @return the current query parameters
      */
     public Object[] getParameters() {
         return parameters;
+    }
+
+    /**
+     * Sets the new parameters of the query
+     *
+     * @param parameters The new query parameters
+     */
+    public void setParameters(Object[] parameters) {
+        this.parameters = parameters;
     }
 
     @Override

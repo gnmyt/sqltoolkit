@@ -207,6 +207,7 @@ public class MySQLConnection {
 
     /**
      * Update something on your server by query
+     *
      * @param query The query you want to execute
      * @return this class
      */
