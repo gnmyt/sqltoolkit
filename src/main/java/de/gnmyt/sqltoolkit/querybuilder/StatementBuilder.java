@@ -2,7 +2,7 @@ package de.gnmyt.sqltoolkit.querybuilder;
 
 public class StatementBuilder {
 
-    private StringBuilder query = new StringBuilder();
+    private final StringBuilder query = new StringBuilder();
 
     /**
      * Basic constructor of the {@link StatementBuilder} with a prefilled text

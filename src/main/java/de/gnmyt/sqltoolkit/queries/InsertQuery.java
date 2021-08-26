@@ -59,6 +59,7 @@ public class InsertQuery extends AbstractQuery {
 
     /**
      * Gets the parameters
+     *
      * @return the parameters
      */
     public Object[] getParameters() {
