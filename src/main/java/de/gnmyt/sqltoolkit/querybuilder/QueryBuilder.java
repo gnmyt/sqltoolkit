@@ -17,6 +17,7 @@ public class QueryBuilder {
     public QueryBuilder(Class<? extends AbstractQuery> queryType) {
         try {
             query = queryType.newInstance();
+            query.defaults();
         } catch (Exception e) {
             LOG.error("Could not initialize query: " + e.getMessage());
         }
