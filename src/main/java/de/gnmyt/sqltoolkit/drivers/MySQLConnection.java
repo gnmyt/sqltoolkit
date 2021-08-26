@@ -4,6 +4,8 @@ import de.gnmyt.sqltoolkit.api.SQLConsumer;
 import de.gnmyt.sqltoolkit.factory.TableFactory;
 import de.gnmyt.sqltoolkit.generator.TableGenerator;
 import de.gnmyt.sqltoolkit.manager.*;
+import de.gnmyt.sqltoolkit.querybuilder.AbstractQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryBuilder;
 import de.gnmyt.sqltoolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,6 +122,16 @@ public class MySQLConnection {
         } catch (Exception e) {
             LOG.error(e.getMessage());
         }
+    }
+
+    /**
+     * Gets a new instance of the {@link QueryBuilder}
+     *
+     * @param queryType The type of the query you want to generate
+     * @return a new {@link QueryBuilder} instance
+     */
+    public QueryBuilder createQuery(Class<? extends AbstractQuery> queryType) {
+        return new QueryBuilder(queryType);
     }
 
     /**
