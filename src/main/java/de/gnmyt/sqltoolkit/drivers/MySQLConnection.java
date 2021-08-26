@@ -6,6 +6,7 @@ import de.gnmyt.sqltoolkit.generator.TableGenerator;
 import de.gnmyt.sqltoolkit.manager.*;
 import de.gnmyt.sqltoolkit.querybuilder.AbstractQuery;
 import de.gnmyt.sqltoolkit.querybuilder.QueryBuilder;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import de.gnmyt.sqltoolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,6 +120,54 @@ public class MySQLConnection {
     public void getResult(String query, SQLConsumer<ResultManager> consumer, Object... params) {
         try {
             consumer.accept(getResult(query, params));
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Gets a {@link ResultSet} from the server
+     *
+     * @param query The query you want to execute
+     * @return the {@link ResultSet}
+     */
+    public ResultSet getResultSet(SQLQuery query) {
+        return getResultSet(query.getStatement(), query.getParameters());
+    }
+
+    /**
+     * Gets a {@link ResultManager} from the server
+     *
+     * @param query The query you want to execute
+     * @return the {@link ResultManager}
+     */
+    public ResultManager getResult(SQLQuery query) {
+        return getResult(query.getStatement(), query.getParameters());
+    }
+
+    /**
+     * Run an action with the result from your server
+     *
+     * @param query    The query you want to execute
+     * @param consumer The consumer you want to execute
+     */
+    public void getResultSet(SQLQuery query, SQLConsumer<ResultSet> consumer) {
+        try {
+            consumer.accept(getResultSet(query));
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Run an action with the result from your server (get the manager)
+     *
+     * @param query    The query you want to execute
+     * @param consumer The consumer you want to execute
+     */
+    public void getResult(SQLQuery query, SQLConsumer<ResultManager> consumer) {
+        try {
+            consumer.accept(getResult(query));
         } catch (Exception e) {
             LOG.error(e.getMessage());
         }
