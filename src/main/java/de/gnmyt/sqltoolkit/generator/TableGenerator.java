@@ -1,6 +1,9 @@
 package de.gnmyt.sqltoolkit.generator;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
+import de.gnmyt.sqltoolkit.queries.TableCreationQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import de.gnmyt.sqltoolkit.types.SQLType;
 import de.gnmyt.sqltoolkit.types.TableField;
 
@@ -10,7 +13,7 @@ public class TableGenerator {
 
     private final MySQLConnection connection;
 
-    private final ArrayList<String> fields;
+    private final ArrayList<TableField> fields = new ArrayList<>();
     private final String tableName;
 
     /**
@@ -21,18 +24,7 @@ public class TableGenerator {
     public TableGenerator(MySQLConnection connection, String tableName) {
         this.tableName = tableName;
         this.connection = connection;
-        this.fields = new ArrayList<>();
-    }
-
-    /**
-     * Add a field to the Table
-     *
-     * @param field String of the field
-     * @return this class
-     */
-    public TableGenerator addField(String field) {
-        fields.add(field);
-        return this;
+        addField(SQLType.INTEGER, "id", 255, null, "AUTO_INCREMENT");
     }
 
     /**
@@ -42,19 +34,11 @@ public class TableGenerator {
      * @param name               The name of the field you want to add
      * @param length             The length of the field you want to add
      * @param defaultValue       The default value of the field (leave empty for no default value)
-     * @param optionalParameters Optional parameters you want to add to the statement
+     * @param extras Optional parameters you want to add to the statement
      * @return this class
      */
-    public TableGenerator addField(SQLType type, String name, Integer length, String defaultValue, String... optionalParameters) {
-        StringBuilder temp = new StringBuilder();
-        temp.append("`").append(name).append("` ").append(type.getValue()).append("(").append(length).append(")");
-        temp.append(!defaultValue.isEmpty() ? " DEFAULT '" + defaultValue + "'" : "");
-
-        for (String optionalParameter : optionalParameters) {
-            temp.append(" ").append(optionalParameter);
-        }
-
-        fields.add(temp.toString());
+    public TableGenerator addField(SQLType type, String name, Integer length, String defaultValue, String... extras) {
+        fields.add(new TableField().setType(type).setName(name).setLength(length).setDefaultValue(defaultValue).setExtras(extras));
         return this;
     }
 
@@ -70,8 +54,13 @@ public class TableGenerator {
         return addField(type, name, length, "");
     }
 
+    /**
+     * Add a field to the table
+     * @param field The field you want to add
+     * @return this class
+     */
     public TableGenerator addField(TableField field) {
-        fields.add(field.generateSQLRow());
+        fields.add(field);
         return this;
     }
 
@@ -90,19 +79,12 @@ public class TableGenerator {
      * Creates the table you wanted
      */
     public void create() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" ( ");
-
-        sb.append("`id` INT(255) NOT NULL AUTO_INCREMENT");
-
-        for (String field : fields) {
-            sb.append(", ").append(field);
-        }
-
-        sb.append(", PRIMARY KEY (`id`)");
-
-        sb.append(" ) ENGINE = InnoDB;");
-        connection.update(sb.toString());
+        SQLQuery query = connection.createQuery(TableCreationQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName)
+                .addParameter(QueryParameter.FIELD_LIST, fields)
+                .addParameter(QueryParameter.PRIMARY_KEY, "id")
+                .build();
+        connection.update(query);
     }
 
 }
