@@ -31,6 +31,16 @@ public enum QueryParameter {
     SELECT_LIST,
 
     /**
+     * The field list of the query provided as a {@link java.util.ArrayList} that contains a {@link de.gnmyt.sqltoolkit.types.TableField}
+     */
+    FIELD_LIST,
+
+    /**
+     * Tells the {@link de.gnmyt.sqltoolkit.queries.TableCreationQuery} which field is primary
+     */
+    PRIMARY_KEY,
+
+    /**
      * The row limit of a query provided as a {@link String}
      */
     LIMIT
