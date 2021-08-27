@@ -96,7 +96,7 @@ public abstract class SQLTable {
      * @param extras       The extras that you want to add
      */
     protected void custom(String type, String name, int length, boolean allowNull, String defaultValue, String... extras) {
-        custom(new TableField(name, type, length, allowNull, defaultValue).setExtra(extras));
+        custom(new TableField(name, type, length, allowNull, defaultValue).setExtras(extras));
     }
 
     /**

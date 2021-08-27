@@ -92,7 +92,7 @@ public class CustomTableFieldManager {
      * @return this class
      */
     public CustomTableFieldManager extras(String[] extras) {
-        field.setExtra(extras);
+        field.setExtras(extras);
         return this;
     }
 
