@@ -2,6 +2,9 @@ package de.gnmyt.sqltoolkit.storage;
 
 import de.gnmyt.sqltoolkit.drivers.MySQLConnection;
 import de.gnmyt.sqltoolkit.manager.*;
+import de.gnmyt.sqltoolkit.queries.TableCreationQuery;
+import de.gnmyt.sqltoolkit.querybuilder.QueryParameter;
+import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
 import de.gnmyt.sqltoolkit.types.SQLType;
 import de.gnmyt.sqltoolkit.types.TableField;
 
@@ -164,27 +167,22 @@ public abstract class SQLTable {
     }
 
     /**
-     * Generates the table sql
-     *
-     * @return the table sql
+     * Creates the table
      */
-    public String generateSQL() {
+    public void create() {
         tableFields = new ArrayList<>();
-        StringBuilder query = new StringBuilder();
 
         // Add table fields
         integer("id", 255, false, "", "AUTO_INCREMENT");
         tableFields();
 
-        // Create the query
-        query.append("CREATE TABLE IF NOT EXISTS ").append(tableName()).append("(");
-        for (TableField tableField : tableFields)
-            query.append(tableField.generateSQLRow()).append(", ");
-        query.append("PRIMARY KEY (id)");
-        query.append(") ENGINE=InnoDB;");
+        SQLQuery query = connection.createQuery(TableCreationQuery.class)
+                .addParameter(QueryParameter.TABLE_NAME, tableName())
+                .addParameter(QueryParameter.PRIMARY_KEY, "id")
+                .addParameter(QueryParameter.FIELD_LIST, tableFields)
+                .build();
 
-        // Return the query
-        return query.toString();
+        connection.update(query);
     }
 
 }
