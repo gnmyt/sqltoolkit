@@ -1,13 +1,15 @@
 package de.gnmyt.sqltoolkit.types;
 
+import de.gnmyt.sqltoolkit.querybuilder.StatementBuilder;
+
 public class TableField {
 
     private String name = "default";
     private String type = SQLType.STRING.getValue();
-    private int length = 255;
     private boolean allowNull = false;
-    private String defaultValue = "";
-    private String[] extra = new String[0];
+    private String[] extras = new String[0];
+    private int length = 0;
+    private Object defaultValue;
 
     /**
      * Basic constructor of the {@link TableField}
@@ -18,7 +20,7 @@ public class TableField {
      * @param allowNull    <code>true</code> if you want to allow a <b>NULL</b> in the field, otherwise <code>false</code>
      * @param defaultValue The default value of the field
      */
-    public TableField(String name, String type, int length, boolean allowNull, String defaultValue) {
+    public TableField(String name, String type, int length, boolean allowNull, Object defaultValue) {
         this.name = name;
         this.type = type;
         this.length = length;
@@ -99,7 +101,7 @@ public class TableField {
      * @return the length of the field
      */
     public int getLength() {
-        return length != 0 ? length : 255;
+        return length;
     }
 
     /**
@@ -118,18 +120,18 @@ public class TableField {
      *
      * @return the extra of the field
      */
-    public String[] getExtra() {
-        return extra;
+    public String[] getExtras() {
+        return extras;
     }
+
 
     /**
      * Sets the extras of the field
-     *
-     * @param extra The new extras of the field
+     * @param extras The extras you want to add
      * @return this class
      */
-    public TableField setExtra(String[] extra) {
-        this.extra = extra;
+    public TableField setExtras(String... extras) {
+        this.extras = extras;
         return this;
     }
 
@@ -138,11 +140,11 @@ public class TableField {
      *
      * @return the extras of the field as a string
      */
-    public String getExtras() {
-        StringBuilder extras = new StringBuilder();
-        for (int i = 0; i < getExtra().length; i++)
-            extras.append(getExtra()[i]);
-        return extras.toString();
+    public String getExtraString() {
+        StatementBuilder extras = new StatementBuilder();
+        for (int i = 0; i < getExtras().length; i++)
+            extras.append(getExtras()[i]);
+        return extras.build();
     }
 
     /**
@@ -160,7 +162,10 @@ public class TableField {
      * @return the default value of the field
      */
     public String getDefaultValue() {
-        return !defaultValue.isEmpty() ? "DEFAULT '" + defaultValue + "'" : "";
+        if (defaultValue == null) return "";
+        if (defaultValue instanceof String && (((String) defaultValue).isEmpty())) return "";
+
+        return "DEFAULT " + (defaultValue instanceof String ? "'" + defaultValue + "'" : defaultValue);
     }
 
     /**
@@ -169,7 +174,7 @@ public class TableField {
      * @param defaultValue The new default value of the field
      * @return this class
      */
-    public TableField setDefaultValue(String defaultValue) {
+    public TableField setDefaultValue(Object defaultValue) {
         this.defaultValue = defaultValue;
         return this;
     }
@@ -200,7 +205,11 @@ public class TableField {
      * @return the generated sql row
      */
     public String generateSQLRow() {
-        return String.format("`%s` %s(%d) %s %s %s", getName(), getType(), getLength(), getNullAsSQL(), getDefaultValue(), getExtras());
+        return String.format("`%s` %s%s%s%s%s", getName(), getType(),
+                getLength() == 0 ? "" : "(" + getLength() + ")",
+                getNullAsSQL().isEmpty() ? "" : " " + getNullAsSQL(),
+                getDefaultValue().isEmpty() ? "" : " " + getDefaultValue(),
+                getExtraString().isEmpty() ? "" : " " + getExtraString());
     }
 
 
