@@ -16,7 +16,7 @@ public class LoginExample {
         // You can now set the settings of the connection (before connecting)
         connection.updateSettings()
                 .useSSL(true) // You can set for example the ssl property
-                .customProperty("example", ""); // You can also set a custom property
+                .customProperty("example", "value"); // You can also set a custom property
 
 
         // Now you can connect to the database
