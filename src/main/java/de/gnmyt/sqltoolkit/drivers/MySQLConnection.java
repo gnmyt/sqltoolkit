@@ -7,7 +7,6 @@ import de.gnmyt.sqltoolkit.manager.*;
 import de.gnmyt.sqltoolkit.querybuilder.AbstractQuery;
 import de.gnmyt.sqltoolkit.querybuilder.QueryBuilder;
 import de.gnmyt.sqltoolkit.querybuilder.SQLQuery;
-import de.gnmyt.sqltoolkit.types.LoginParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +19,12 @@ public class MySQLConnection {
 
     public static final Logger LOG = LoggerFactory.getLogger("MySQL-Logger");
     private final TableFactory tableFactory = new TableFactory(this);
+    private final ConnectSettingsManager settingsManager = new ConnectSettingsManager(this);
 
     private final String hostname;
     private final String username;
     private final String password;
     private final String database;
-
-    private String connectString = "";
 
     private Connection con;
 
@@ -45,21 +43,8 @@ public class MySQLConnection {
         this.database = database;
     }
 
-    /**
-     * Advanced constructor for the connection
-     *
-     * @param hostname    MySQL server hostname
-     * @param username    MySQL server username
-     * @param password    MySQL server password
-     * @param database    MySQL server database
-     * @param loginParams Login parameters
-     */
-    public MySQLConnection(String hostname, String username, String password, String database, LoginParam... loginParams) {
-        this.hostname = hostname;
-        this.username = username;
-        this.password = password;
-        this.database = database;
-        updateConnectionString(loginParams);
+    public ConnectSettingsManager updateSettings() {
+        return settingsManager;
     }
 
     /**
@@ -320,7 +305,7 @@ public class MySQLConnection {
             try {
                 LOG.info("Connecting to " + hostname + " with user " + username + " to database " + database);
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection("jdbc:mysql://" + hostname + "/" + database + connectString, username, password);
+                con = DriverManager.getConnection("jdbc:mysql://" + hostname + "/" + database + settingsManager.generateConnectionString(), username, password);
                 LOG.info("Connection established");
             } catch (Exception exception) {
                 if (exception.getMessage().contains("jdbc.Driver"))
@@ -351,34 +336,6 @@ public class MySQLConnection {
             }
         } else LOG.warn("Not connected. Please connect first");
         return this;
-    }
-
-    /**
-     * Update the Connection String
-     *
-     * @param loginParams New login parameters
-     * @return this class
-     */
-    public MySQLConnection updateConnectionString(LoginParam... loginParams) {
-        this.connectString = getConnectionString(loginParams);
-        return this;
-    }
-
-    /**
-     * Get the current jdbc connection string for mysql
-     *
-     * @param loginParams login parameters
-     * @return the string
-     */
-    private String getConnectionString(LoginParam[] loginParams) {
-        boolean used = false;
-        StringBuilder currentString = new StringBuilder();
-        for (LoginParam param : loginParams) {
-            String currentChar = (used) ? "&" : "?";
-            used = true;
-            currentString.append(currentChar).append(param.getValue());
-        }
-        return currentString.toString();
     }
 
     /**
