@@ -16,7 +16,7 @@
 
 ## About The Project
 
-This is a small project for quickly managing a MySQL database in Java. It makes everyday life with a database much
+This is a small project for quickly managing a MySQL database in Java. It makes your everyday life with a database much
 easier.
 
 ### Installation
@@ -46,20 +46,6 @@ easier.
    ```java
    MySQLConnection connection = new MySQLConnection(hostname, username, password, database).connect();
    ```
-    - Example of a constructor with optional login parameters
-   ```java
-   MySQLConnection connection = new MySQLConnection(hostname, username, password, database, LoginParam.AUTO_RECONNECT, LoginParam.NO_SSL).connect();
-   ```
-   #### Login Parameters
-    - DEFAULT *(
-      useSSL=false&autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=UTC)*
-    - NO_SSL *(useSSL=false)*
-    - USE_SSL *(useSSL=true)*
-    - AUTO_RECONNECT *(autoReconnect=true)*
-    - UTF8_ENCODING *(characterEncoding=UTF-8)*
-    - USE_UNICODE *(useUnicode=yes)*
-    - USE_TIMEZONE *(useTimezone=true)*
-    - TIMEZONE_UTC *(serverTimezone=UTC)*
 2. Perform a default SQL query
     - Get a ResultSet
       ```java
