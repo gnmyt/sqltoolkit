@@ -28,7 +28,7 @@ public class TableFactory {
      * @return this class
      */
     public TableFactory register(SQLTable table) {
-        connection.update(table.generateSQL());
+        table.create();
         REGISTERED_TABLES.put(table.getClass(), table);
         return this;
     }
