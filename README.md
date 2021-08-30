@@ -42,7 +42,7 @@ easier.
 ### Usage Examples
 
 1. Create a connection
-    - Example of a constructor without optional specifications
+    - Example of creating a connection
    ```java
    MySQLConnection connection = new MySQLConnection(hostname, username, password, database).connect();
    ```
@@ -79,14 +79,6 @@ easier.
              .limit(10)
              .getResult();
        ```
-    5. Choosing Results with custom parameters
-       ```java
-       connection.select()
-              .from("table")
-              .where("column", "value")
-              .add("LIMIT 2,5")
-              .getResult();
-       ```
 4. Perform an update using managers
     1. Update a Table
        ```java
@@ -100,8 +92,8 @@ easier.
        ```java
        connection
              .generateTable("table")
-             .addField(SQLType.STRING, "column", 999)
-             .addField(SQLType.STRING, "column2", 25)
+             .addField(SQLType.STRING, "column")
+             .addField(SQLType.INTEGER, "column2", 2)
              .create();
        ```
     3. Delete something from a table
@@ -111,6 +103,14 @@ easier.
              .where("column", "value")
              .execute();
        ```
+    4. Insert something into a table
+       ```java
+       connection
+                .insertTo("table")
+                .value("username", "GNM")
+                .value("email", "germannewsmaker@gmail.com")
+                .execute();
+       ```
 You can find other examples in the [examples directory](src/examples/java).
 
 ## License
@@ -119,7 +119,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## End
 
-Currently, there are not many features yet, so feel free to write me some suggestions!
+Currently, there are not many features, so feel free to write me some suggestions!
 
 [contributors-shield]: https://img.shields.io/github/contributors/gnmyt/sqltoolkit.svg?style=for-the-badge
 
