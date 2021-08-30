@@ -21,6 +21,7 @@ public class TableCreationQuery extends AbstractQuery {
 
     /**
      * Builds the field list
+     *
      * @return the field list as a string
      */
     public String buildFieldList() {
@@ -33,7 +34,8 @@ public class TableCreationQuery extends AbstractQuery {
             builder.append(fieldList.get(i).generateSQLRow());
         }
 
-        if (!((String) getParameter(PRIMARY_KEY)).isEmpty()) builder.appendDefault(String.format(", PRIMARY KEY (%s)", getParameter(PRIMARY_KEY)));
+        if (!((String) getParameter(PRIMARY_KEY)).isEmpty())
+            builder.appendDefault(String.format(", PRIMARY KEY (%s)", getParameter(PRIMARY_KEY)));
 
         return builder.append(")").build();
     }

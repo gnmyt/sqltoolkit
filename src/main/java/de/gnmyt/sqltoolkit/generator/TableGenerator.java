@@ -30,11 +30,11 @@ public class TableGenerator {
     /**
      * Add a field to the Table
      *
-     * @param type               The type of the field you want to add
-     * @param name               The name of the field you want to add
-     * @param length             The length of the field you want to add
-     * @param defaultValue       The default value of the field (leave empty for no default value)
-     * @param extras Optional parameters you want to add to the statement
+     * @param type         The type of the field you want to add
+     * @param name         The name of the field you want to add
+     * @param length       The length of the field you want to add
+     * @param defaultValue The default value of the field (leave empty for no default value)
+     * @param extras       Optional parameters you want to add to the statement
      * @return this class
      */
     public TableGenerator addField(SQLType type, String name, Integer length, String defaultValue, String... extras) {
@@ -56,6 +56,7 @@ public class TableGenerator {
 
     /**
      * Add a field to the table
+     *
      * @param field The field you want to add
      * @return this class
      */

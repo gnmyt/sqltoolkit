@@ -127,6 +127,7 @@ public class TableField {
 
     /**
      * Sets the extras of the field
+     *
      * @param extras The extras you want to add
      * @return this class
      */

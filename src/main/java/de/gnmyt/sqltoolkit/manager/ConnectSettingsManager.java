@@ -9,7 +9,7 @@ public class ConnectSettingsManager {
 
     private final MySQLConnection connection;
 
-    private HashMap<String, Object> settingValues = new HashMap<>();
+    private final HashMap<String, Object> settingValues = new HashMap<>();
 
     public ConnectSettingsManager(MySQLConnection connection) {
         this.connection = connection;
@@ -17,8 +17,9 @@ public class ConnectSettingsManager {
 
     /**
      * Adds a custom property to the values
+     *
      * @param property The property you want to add
-     * @param value The value you want to use
+     * @param value    The value you want to use
      * @return this class
      */
     public ConnectSettingsManager customProperty(String property, Object value) {
@@ -29,6 +30,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the timezone of the connection
+     *
      * @param timezone The new timezone
      * @return this class
      */
@@ -40,6 +42,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the requireSSL property
+     *
      * @param requireSSL The new value of the requireSSL property
      * @return this class
      */
@@ -50,6 +53,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the useSSL property
+     *
      * @param useSSL The new value of the useSSL property
      * @return this class
      */
@@ -60,6 +64,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the autoReconnect property
+     *
      * @param autoReconnect The new value of the autoReconnect property
      * @return this class
      */
@@ -70,6 +75,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the maxReconnects property
+     *
      * @param maxReconnects The new value of the maxReconnects property
      * @return this class
      */
@@ -80,6 +86,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the charset property
+     *
      * @param charset The new value of the charset property
      * @return this class
      */
@@ -90,6 +97,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the tcpKeepAlive property
+     *
      * @param tcpKeepAlive The new value of the tcpKeepAlive property
      * @return this class
      */
@@ -100,6 +108,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the tcpNoDelay property
+     *
      * @param tcpNoDelay The new value of the tcpNoDelay property
      * @return this class
      */
@@ -110,6 +119,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the tcpRcvBuf property
+     *
      * @param tcpRcvBuf The new value of the tcpRcvBuf property
      * @return this class
      */
@@ -120,6 +130,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the tcpSndBuf property
+     *
      * @param tcpSndBuf The new value of the tcpSndBuf property
      * @return this class
      */
@@ -130,6 +141,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the tcpTrafficClass property
+     *
      * @param tcpTrafficClass The new value of the tcpTrafficClass property
      * @return this class
      */
@@ -140,6 +152,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the useCompression property
+     *
      * @param useCompression The new value of the useCompression property
      * @return this class
      */
@@ -150,6 +163,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the useUnbufferedInput property
+     *
      * @param useUnbufferedInput The new value of the useUnbufferedInput property
      * @return this class
      */
@@ -160,6 +174,7 @@ public class ConnectSettingsManager {
 
     /**
      * Sets the paranoid property
+     *
      * @param paranoid The new value of the paranoid property
      * @return this class
      */
@@ -170,6 +185,7 @@ public class ConnectSettingsManager {
 
     /**
      * Creates the connection string
+     *
      * @return the connection string
      */
     public String generateConnectionString() {
