@@ -17,7 +17,7 @@ public class QueryExample {
         // We then can create a hashmap with all where-parameters
         HashMap<String, Object> whereList = new HashMap<>();
 
-        // Now we can now add some values to the 'where'-list
+        // Now we can add some values to the 'where'-list
         whereList.put("username", "GNM");
         whereList.put("email", "germannewsmaker@gmail.com");
 
