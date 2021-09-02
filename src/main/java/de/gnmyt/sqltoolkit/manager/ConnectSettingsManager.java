@@ -96,6 +96,28 @@ public class ConnectSettingsManager {
     }
 
     /**
+     * Sets the connectTimeout property
+     *
+     * @param connectTimeout The new value of the connectTimeout property
+     * @return this class
+     */
+    public ConnectSettingsManager connectTimeout(int connectTimeout) {
+        settingValues.put("connectTimeout", connectTimeout);
+        return this;
+    }
+
+    /**
+     * Sets the socketTimeout property
+     *
+     * @param socketTimeout The new value of the socketTimeout property
+     * @return this class
+     */
+    public ConnectSettingsManager socketTimeout(int socketTimeout) {
+        settingValues.put("socketTimeout", socketTimeout);
+        return this;
+    }
+
+    /**
      * Sets the tcpKeepAlive property
      *
      * @param tcpKeepAlive The new value of the tcpKeepAlive property
@@ -140,6 +162,17 @@ public class ConnectSettingsManager {
     }
 
     /**
+     * Sets the maxAllowedPacket property
+     *
+     * @param maxAllowedPacket The new value of the maxAllowedPacket property
+     * @return this class
+     */
+    public ConnectSettingsManager maxAllowedPacket(int maxAllowedPacket) {
+        settingValues.put("maxAllowedPacket", maxAllowedPacket);
+        return this;
+    }
+
+    /**
      * Sets the tcpTrafficClass property
      *
      * @param tcpTrafficClass The new value of the tcpTrafficClass property
@@ -180,6 +213,17 @@ public class ConnectSettingsManager {
      */
     public ConnectSettingsManager paranoid(boolean paranoid) {
         settingValues.put("paranoid", paranoid);
+        return this;
+    }
+
+    /**
+     * Sets the verifyServerCertificate property
+     *
+     * @param verifyServerCertificate The new value of the verifyServerCertificate property
+     * @return this class
+     */
+    public ConnectSettingsManager verifyServerCertificate(boolean verifyServerCertificate) {
+        settingValues.put("verifyServerCertificate", verifyServerCertificate);
         return this;
     }
 
