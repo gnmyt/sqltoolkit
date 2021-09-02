@@ -7,7 +7,12 @@ public enum SQLType {
     INTEGER("INT"),
     DATE("DATE"),
     DATETIME("DATETIME"),
-    BOOLEAN("TINYINT");
+    TIMESTAMP("TIMESTAMP"),
+    TIME("TIME"),
+    YEAR("YEAR"),
+    BOOLEAN("TINYINT"),
+    BIG_INTEGER("BIGINT"),
+    FLOAT("FLOAT");
 
     private final String value;
 
