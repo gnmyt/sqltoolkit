@@ -27,7 +27,6 @@ public class ConnectSettingsManager {
         return this;
     }
 
-
     /**
      * Sets the timezone of the connection
      *
