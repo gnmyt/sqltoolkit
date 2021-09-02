@@ -20,7 +20,7 @@ public class SelectionManager {
     private final HashMap<String, Object> WHERE_LIST = new HashMap<>();
     private final ArrayList<String> SELECTION_LIST = new ArrayList<>();
 
-    private String limit = "";
+    private String limit;
     private String tableName = "default";
 
     /**
