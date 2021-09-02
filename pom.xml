@@ -6,7 +6,7 @@
 
     <groupId>de.gnmyt</groupId>
     <artifactId>SQLToolkit</artifactId>
-    <version>1.0</version>
+    <version>2.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -14,11 +14,28 @@
     </properties>
 
     <dependencies>
+
+        <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.25</version>
         </dependency>
+
+        <!-- Logger API (api) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
+        <!-- Logger API (simple) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
     </dependencies>
 
 </project>
