@@ -26,7 +26,7 @@ public class MySQLConnection {
     private final String password;
     private final String database;
 
-    private Connection con;
+    protected Connection con;
 
     /**
      * Basic constructor for the connection
